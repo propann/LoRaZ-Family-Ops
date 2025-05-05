@@ -1,0 +1,85 @@
+
+# 🚗 Config Meshtastic - Module VÉHICULE (MOBILO_UNIT_01)
+# Nom de code : ZEBRA_MOBILE — Station mobile LoRa embarquée et autonome
+
+channel_url: https://meshtastic.org/e/#Ci8SICiFhwzSnHDl0la2oUfW8aqGzh69qWvCz-xkOre8dy0lGgdGQU1JTElBOgIIDQ==
+channel_settings:
+  - name: FAMILIA
+    id: 0
+    psk: 2885870cd29c70e5d256b6a147d6f1aa86ce1ebda96bc2cfec643ab7bc772d25
+  - name: TESORO
+    id: 6
+    psk: d72ef7bf8e42f0965d0734103b238267880268eaf8faf74a0c63d7ee22aa5602
+  - name: ALERTA_ROJA
+    id: 5
+    psk: 542e04683805717d899d1b34a316540586123e321f16dced45832a856788d934
+  - name: CASTILLO
+    id: 3
+    psk: 9596342bb8bcf82914bb5ea83c1852afb416dfe24f53ac26ca3b37f934dd731b
+
+config:
+  bluetooth:
+    mode: DISABLED  # Pas de Bluetooth en véhicule. Priorité au GPS et LoRa.
+
+  device:
+    nodeInfoBroadcastSecs: 7200  # Il est mobile, mais stable
+
+  display:
+    screenOnSecs: 60
+
+  lora:
+    region: EU_868
+    channelNum: 0  # FAMILIA — par défaut, mais modulable depuis l’encodeur
+    txPower: 20
+    usePreset: true
+    ignoreMqtt: true
+    hopLimit: 5
+    txEnabled: true
+
+  network:
+    wifiEnabled: false
+    ntpServer: pool.ntp.org
+
+  position:
+    gpsMode: ENABLED
+    gpsUpdateInterval: 30  # Envoie sa position souvent
+    positionBroadcastSecs: 120
+    broadcastSmartMinimumDistance: 20
+    positionBroadcastSmartEnabled: true
+    positionFlags: 819
+
+  power:
+    isPowerSaving: false  # Alimenté en solaire/USB voiture
+    lsSecs: 0
+    minWakeSecs: 5
+    sdsSecs: 0
+    waitBluetoothSecs: 0
+
+  security:
+    serialEnabled: true
+
+module_config:
+  gpio:
+    inputs:
+      - pin: 0
+        name: HornAlert
+        mode: INPUT_PULLUP
+        action: send_text
+        send_text: "🚨 Mouvement détecté dans le véhicule !"
+
+  ambientLighting:
+    red: 10
+    green: 0
+    blue: 255
+    current: 8
+
+  externalNotification:
+    enabled: true
+    alertMessageBuzzer: true
+    useI2sAsBuzzer: true
+
+owner: VEHICULE
+owner_short: ZM
+
+# 🧠 Note : Le module peut servir de relais volant temporaire, de traqueur GPS et d’alerte mobile.
+# Prévu pour survivre à un choc de portière, une fuite zombie et une panne de Wi-Fi simultanée.

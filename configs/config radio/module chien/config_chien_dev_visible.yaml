@@ -1,0 +1,83 @@
+
+# 🐶 Config Meshtastic - Module CHIEN (DOGTAG_01)
+# Nom de code : DOGGO_1 — Collier connecté pour toutou tactique
+
+channel_url: https://meshtastic.org/e/#Ci8SIICxkpFh8KVuYwlx8eG-AEbaB9pAFmuNvAtS0ihzLrWZIGgdQRVJSSVRPUzoICEcQyAE=
+channel_settings:
+  - name: FAMILIA
+    id: 0
+    psk: 2885870cd29c70e5d256b6a147d6f1aa86ce1ebda96bc2cfec643ab7bc772d25
+  - name: PERRITOS
+    id: 4
+    psk: cb1f9a5a4a56fa49f932e2183ed20981798b23b1b07187da6d11f65d3ac49546
+  - name: TESORO
+    id: 6
+    psk: d72ef7bf8e42f0965d0734103b238267880268eaf8faf74a0c63d7ee22aa5602
+
+config:
+  bluetooth:
+    mode: DISABLED  # Le chien ne se connecte pas en Bluetooth, sauf s’il a appris à taper au clavier.
+  
+  device:
+    nodeInfoBroadcastSecs: 10800
+
+  display:
+    screenOnSecs: 0  # Pas d’écran. Le chien s’en fiche.
+
+  lora:
+    region: EU_868
+    channelNum: 4  # Canal dédié PERRITOS
+    txPower: 17  # Puissance raisonnable pour colliers miniatures
+    usePreset: true
+    ignoreMqtt: true
+    hopLimit: 1
+    txEnabled: true
+
+  network:
+    wifiEnabled: false
+    ntpServer: pool.ntp.org
+
+  position:
+    gpsMode: ENABLED
+    gpsUpdateInterval: 60
+    positionBroadcastSecs: 300
+    broadcastSmartMinimumIntervalSecs: 30
+    broadcastSmartMinimumDistance: 20
+    positionBroadcastSmartEnabled: true
+    positionFlags: 819
+
+  power:
+    isPowerSaving: true
+    lsSecs: 600
+    minWakeSecs: 15
+    sdsSecs: 4294967295
+    waitBluetoothSecs: 5
+
+  security:
+    serialEnabled: true
+
+module_config:
+  gpio:
+    inputs:
+      - pin: 0
+        name: LostRFID
+        mode: INPUT_PULLUP
+        action: send_text
+        send_text: "⚠️ Puce non détectée ! Chien sans collier ?"
+
+  ambientLighting:
+    red: 255
+    green: 0
+    blue: 0
+    current: 5
+
+  externalNotification:
+    enabled: true
+    alertMessageBuzzer: true
+    useI2sAsBuzzer: false
+
+owner: DOGGO
+owner_short: 1
+
+# 🧠 Note de terrain : ce module émet régulièrement sa position et envoie une alerte si la puce RFID n’est plus détectée.
+# Prévu pour colliers étanches avec GPS visible et antenne externe mini. S'utilise aussi comme sonar de recherche si le chien a pris la fuite en mode zombie.

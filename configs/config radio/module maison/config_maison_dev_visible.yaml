@@ -1,0 +1,75 @@
+
+# 🏠 Config Meshtastic - Module MAISON (BASE_CASTILLO)
+# Nom de code : FORTRESS_MAIN — QG du réseau familial, centre de l'intelligence zombie
+
+channel_url: https://meshtastic.org/e/#Ci8SICiFhwzSnHDl0la2oUfW8aqGzh69qWvCz-xkOre8dy0lGgdGQU1JTElBOgIIDQ==
+channel_settings:
+  - name: FAMILIA
+    id: 0
+    psk: 2885870cd29c70e5d256b6a147d6f1aa86ce1ebda96bc2cfec643ab7bc772d25
+  - name: CASTILLO
+    id: 3
+    psk: 9596342bb8bcf82914bb5ea83c1852afb416dfe24f53ac26ca3b37f934dd731b
+  - name: ALERTA_ROJA
+    id: 5
+    psk: 542e04683805717d899d1b34a316540586123e321f16dced45832a856788d934
+  - name: TESORO
+    id: 6
+    psk: d72ef7bf8e42f0965d0734103b238267880268eaf8faf74a0c63d7ee22aa5602
+
+config:
+  bluetooth:
+    mode: DISABLED  # Pas besoin de Bluetooth sur la station fixe. On veut de la fiabilité, pas du pairing.
+
+  device:
+    nodeInfoBroadcastSecs: 14400  # 4 heures. La base est stable. Pas besoin de hurler.
+
+  display:
+    screenOnSecs: 120  # Peut afficher les derniers messages ou positions
+
+  lora:
+    region: EU_868
+    channelNum: 3  # CASTILLO — zone de la maison / forteresse
+    txPower: 23  # Plus de puissance = plus de portée
+    usePreset: true
+    ignoreMqtt: false
+    hopLimit: 7
+    txEnabled: true
+
+  network:
+    wifiEnabled: true  # La maison a du Wi-Fi, et donc MQTT
+    ntpServer: pool.ntp.org
+
+  position:
+    gpsMode: DISABLED  # La maison ne bouge pas (normalement…)
+    positionBroadcastSecs: 3600  # Une position par heure (optionnel)
+    positionFlags: 0
+
+  power:
+    isPowerSaving: false  # Alimenté en permanence via secteur ou solaire
+    lsSecs: 0
+    minWakeSecs: 0
+    sdsSecs: 0
+    waitBluetoothSecs: 0
+
+  security:
+    serialEnabled: true
+
+module_config:
+  gpio:
+    inputs: []
+    outputs: []
+
+  ambientLighting:
+    red: 255
+    green: 255
+    blue: 255
+    current: 5
+
+  externalNotification:
+    enabled: false
+
+owner: BASE
+owner_short: HQ
+
+# 🧠 QG du réseau. Relais de données, interface MQTT, zone de coordination. Capable de capter tout ce qui passe dans l’air... sauf l’odeur de panique.

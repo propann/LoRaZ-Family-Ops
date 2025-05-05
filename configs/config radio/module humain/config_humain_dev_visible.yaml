@@ -1,0 +1,98 @@
+
+# 🧟‍♂️ Config complète Meshtastic - Module HUMAIN (dev avec canaux ouverts)
+# Nom de code : SCOUT_H1 - Version partage pour phase de développement/test communautaire
+
+channel_url: https://meshtastic.org/e/#Ci8SICiFhwzSnHDl0la2oUfW8aqGzh69qWvCz-xkOre8dy0lGgdGQU1JTElBOgIIDQ==
+channel_settings:
+  - name: FAMILIA
+    id: 0
+    psk: 2885870cd29c70e5d256b6a147d6f1aa86ce1ebda96bc2cfec643ab7bc772d25
+  - name: ALERTA_ROJA
+    id: 5
+    psk: 542e04683805717d899d1b34a316540586123e321f16dced45832a856788d934
+  - name: TESORO
+    id: 6
+    psk: d72ef7bf8e42f0965d0734103b238267880268eaf8faf74a0c63d7ee22aa5602
+
+config:
+  bluetooth:
+    fixedPin: ******  # Masqué pour éviter les intrusions pendant les tests
+    mode: FIXED_PIN
+
+  device:
+    nodeInfoBroadcastSecs: 10800
+
+  display:
+    screenOnSecs: 45
+
+  lora:
+    region: EU_868
+    channelNum: 0
+    txPower: 20
+    usePreset: true
+    sx126xRxBoostedGain: true
+    ignoreMqtt: true
+    hopLimit: 3
+    txEnabled: true
+
+  network:
+    enabledProtocols: 3
+    wifiEnabled: false
+    ntpServer: pool.ntp.org
+
+  position:
+    gpsMode: ENABLED
+    gpsUpdateInterval: 60
+    positionBroadcastSecs: 300
+    broadcastSmartMinimumIntervalSecs: 30
+    broadcastSmartMinimumDistance: 100
+    positionBroadcastSmartEnabled: true
+    positionFlags: 819
+
+  power:
+    isPowerSaving: true
+    lsSecs: 300
+    minWakeSecs: 10
+    sdsSecs: 4294967295
+    waitBluetoothSecs: 30
+
+  security:
+    serialEnabled: true
+
+module_config:
+  gpio:
+    inputs:
+      - pin: 0
+        name: SOS
+        mode: INPUT_PULLUP
+        action: send_text
+        send_text: "🆘 Besoin d'aide immédiate !"
+      - pin: 32
+        name: EncoderPress
+        mode: INPUT_PULLUP
+        action: cycle_display_mode
+      - pin: 34
+        name: EncoderA
+        mode: INPUT
+        action: increment_channel
+      - pin: 35
+        name: EncoderB
+        mode: INPUT
+        action: decrement_channel
+
+  ambientLighting:
+    red: 4
+    green: 190
+    blue: 200
+    current: 10
+
+  externalNotification:
+    alertMessageBuzzer: true
+    enabled: true
+    useI2sAsBuzzer: true
+
+owner: SCOUT
+owner_short: H1
+
+# ⚠️ Note : À utiliser dans un cadre de test. Toute transmission est publique et réutilisable par d'autres modules de la team.
+# En cas d'invasion, penser à changer les PSK et à passer en mode ALERTA_ROJA.
