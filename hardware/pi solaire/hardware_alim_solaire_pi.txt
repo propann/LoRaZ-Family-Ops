@@ -1,0 +1,75 @@
+
+# ☀️ Alimentation Solaire pour Raspberry Pi - Dossier Technique Complémentaire
+
+**Module concerné** : Maison (UNIT-B001), Véhicule (UNIT-V001), Base Secondaire  
+**Version** : Apocalypse-Ready v1.0  
+**Rôle** : Assurer une autonomie complète, sans secteur ni câbles suspects, même en cas d'effondrement total du réseau électrique
+
+---
+
+## 🎯 Objectif
+
+Rendre un Raspberry Pi (Pi 3B+, Pi 4, Pi 5) **totalement autonome en énergie**, via un système solaire simple, robuste et facilement déployable, afin de :
+
+- Maintenir la base maison ou secondaire fonctionnelle en cas de coupure de courant
+- Faire tourner en continu les services critiques (MQTT, Node-RED, Meshtastic Gateway)
+- Minimiser l’intervention humaine (recharge, redémarrage)
+
+---
+
+## 🔋 Configuration Solaire Recommandée
+
+### 🔧 Composants
+
+- **Panneau Solaire** : 6V à 12V / 10W à 30W (minimum 10W recommandé)
+- **Contrôleur de charge solaire** : MPPT ou CN3791 / TP4056 renforcé
+- **Batterie tampon** :
+  - **LiFePO₄** 3.2V 10Ah minimum **(idéal pour longévité)**
+  - ou Powerbank modifiée 5V/3A avec recharge solaire
+- **Convertisseur DC-DC step-up/step-down** :
+  - Sortie 5V régulée, 3A minimum (type UBEC ou régulateur buck boost)
+- **Connectique** :
+  - USB vers Pi ou GPIO 5V/2.5A si optimisé
+  - Diode de protection si usage mixte panneau + secteur
+
+---
+
+## 🧪 Schéma de base
+
+```
+[Panneau Solaire] → [Contrôleur de charge] → [Batterie LiFePO₄]
+                                         ↓
+                            [Convertisseur 5V 3A] → [Raspberry Pi]
+```
+
+---
+
+## ⚙️ Consommation typique à prévoir
+
+| Modèle Pi   | Conso moyenne | Recommandation solaire |
+|-------------|----------------|-------------------------|
+| Pi 3B+      | ~3W (0.6A)     | 10W panneau, 10Ah bat   |
+| Pi 4 (idle) | ~4-6W (0.8-1.2A)| 15-20W panneau, 20Ah bat |
+| Pi 5        | ~6-9W selon charge | 20-30W panneau, 30Ah bat |
+
+> 🔋 **Règle de survie** : vise **au moins 2 jours d’autonomie** sans soleil pour être tranquille.
+
+---
+
+## 🌞 Astuces d’intégration terrain
+
+- **Orientation sud** pour le panneau, 35–45° d’inclinaison
+- Utiliser du Velcro ou un support réglable pour suivre le soleil (low-tech)
+- Boîtier ventilé ou radiateur pour le régulateur et la batterie
+- Prévoir des LED de debug (ou un multimètre zombie-compatible)
+
+---
+
+## 🧟 Conseil tactique
+
+- Camoufler le panneau derrière un rideau ou sur un toit plat
+- Nomme ton système “FORTRESS_SOLAR-1” dans tes dashboards
+- En cas de perte de tension → redémarrage automatique du Pi via script `watchdog` ou module UPS
+
+---
+
