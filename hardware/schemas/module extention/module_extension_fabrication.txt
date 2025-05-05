@@ -1,0 +1,99 @@
+
+# 🌲 Module d’Extension Autonome - Dossier de Fabrication Officiel (Sentinelle Z-NODE)
+
+**Code de projet** : UNIT-X001  
+**Rôle** : Relais LoRa passif + télémétrie environnementale  
+**Statut** : Fixe, ultra-basse conso, autonome et discret  
+**Version** : Apocalypse-Ready v1.2
+
+---
+
+## 🎯 Objectif du module
+
+Installer dans la nature ou à distance un petit **relais LoRa autonome**, qui :
+- Étend la portée du réseau familial
+- Publie régulièrement sa position
+- Mesure la température, l’humidité ou d’autres capteurs simples
+- Ne consomme presque rien
+- Se recharge en solaire, fonctionne 24/7 sans surveillance
+
+---
+
+## 🔩 Composants nécessaires
+
+- 1x ESP32 ou ESP32-S2 mini (TinyPICO, D1 Mini ESP32, etc.)
+- 1x Module LoRa (RFM95 ou intégré type TTGO Lora32)
+- 1x Capteur environnemental BME280 (température, humidité, pression)
+- 1x Batterie Li-Ion ou LiFePO₄ (1000–2000 mAh)
+- 1x Chargeur solaire (TP4056, CN3791…)
+- 1x Panneau solaire 5V (3–5W)
+- 1x Antenne LoRa (fixée ou orientée verticalement)
+- 1x Boîtier étanche (Tupperware de guerre, boîte électrique modifiée…)
+
+---
+
+## 🪛 Schéma de câblage
+
+### BME280 (I2C)
+
+- **VCC** → 3.3V  
+- **GND** → GND  
+- **SCL** → GPIO 22  
+- **SDA** → GPIO 21  
+
+### LoRa (si module séparé)
+
+- SPI standard :  
+  - **SCK** → GPIO 18  
+  - **MISO** → GPIO 19  
+  - **MOSI** → GPIO 23  
+  - **NSS** → GPIO 5  
+  - **DIO0** → GPIO 26  
+
+---
+
+## ⚡ Alimentation solaire
+
+- Panneau 5V relié au chargeur TP4056
+- Batterie tampon Li-Ion
+- Régulateur 3.3V si besoin
+- Deep Sleep entre chaque transmission pour économie d’énergie (cycle de réveil toutes les X minutes)
+
+---
+
+## 📡 Fonctionnalités
+
+- Répète les messages LoRa à portée
+- Envoie température / humidité toutes les 10 minutes (configurable)
+- Peut publier une balise d’identification régulièrement
+- Possibilité d’activer un canal d’alerte s’il fait -20°C ou +45°C 🥶🔥
+
+---
+
+## 🔐 Réglages logiciels
+
+- Nom Meshtastic : `ZNODE_xx`
+- Canaux : FAMILIA (0), CASTILLO (3), EXPLORA (2)
+- Mode : TX basse fréquence, GPS inactif ou très espacé
+- TX Power : 10–17 dBm selon énergie disponible
+- Deep Sleep activé entre transmissions
+
+---
+
+## 📦 Installation sur le terrain
+
+- Planter dans une souche, fixer à un arbre, suspendre à une branche
+- Bien orienter le panneau solaire vers le sud
+- Étanchéifier tout sauf l’orifice capteur (ex. grille fine anti-insectes)
+- Prévoir une LED très faible consommation pour debug local (désactivée en prod)
+
+---
+
+## 🧟 Bonnes pratiques zombies
+
+- Le module ne doit pas clignoter : rester discret = survivre
+- Si vous entendez du bip dans les bois, ce n’est pas lui. Fuyez.
+- Peut être nommé "Nid d’aigle", "Balise Forestière 7", ou "Z-Sentinel-42"
+
+---
+

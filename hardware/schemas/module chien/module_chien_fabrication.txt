@@ -1,0 +1,113 @@
+
+# 🐶 Module Chien - Dossier de Fabrication Officiel (Projet DOGTAG)
+
+**Code de projet** : UNIT-C001  
+**Rôle** : Suivi géolocalisé, surveillance RFID, alerte de fugue  
+**Statut** : Porté en collier, étanche, discret mais bruyant si besoin  
+**Version** : Apocalypse-Ready v1.7
+
+---
+
+## 🎯 Objectif du module
+
+Donner au meilleur ami de l’humain les super-pouvoirs suivants :
+- Être suivi via GPS toutes les X secondes
+- Déclencher une alerte s’il quitte une zone (géofencing)
+- Savoir s’il a été détaché (ou si on lui a volé son collier)
+- Activer un radar sonore quand on le cherche
+- Participer au réseau LoRa sans même savoir lire
+
+---
+
+## 🔩 Composants nécessaires
+
+- 1x ESP32 (LilyGo TTGO T-Echo, T-Call, TinyLoRa E5…)
+- 1x GPS (intégré ou module I2C — NEO6M, L76K…)
+- 1x Module RFID lecteur ISO11785 (puce chien standard, lecture FDX-B 134.2 kHz)
+- 1x Antenne RFID flexible (placée à l’intérieur du collier)
+- 1x Buzzer piézo mini (sonar-beep de repérage)
+- 1x LED RGB ou clignotante (optionnelle)
+- 1x Batterie LiPo (petite, genre 500 mAh) ou 2x AAA
+- 1x Boîtier mini + collier étanche
+- 1x Panneau solaire flexible (optionnel, pour autonomie camping)
+
+---
+
+## 🪛 Schéma de câblage principal
+
+### RFID (module type RDM6300 ou compatible ISO11785)
+
+- **VCC** → 3.3V  
+- **GND** → GND  
+- **TX** → GPIO 16  
+- **RX** → GPIO 17  
+*Attention à bien adapter le niveau logique si le module RFID sort du 5V.*
+
+### GPS (si module séparé)
+
+- **VCC** → 3.3V  
+- **GND** → GND  
+- **TX** → GPIO 4  
+- **RX** → GPIO 5  
+
+### Buzzer
+
+- **+** → GPIO 26  
+- **-** → GND  
+
+---
+
+## 🌈 LED RGB (optionnelle)
+
+- WS2812 LED  
+- **Data In** → GPIO 25  
+- **Alim** : 5V ou régulée
+
+---
+
+## ⚡ Alimentation
+
+- Batterie LiPo rechargeable 3.7V (500–1000 mAh)
+- TP4056 ou module charge intégré si besoin
+- Peut être combinée à un micro panneau solaire sur le dessus du collier
+
+---
+
+## 📦 Montage collier
+
+- Le tout est intégré dans un boîtier PETG étanche ou TPU flexible
+- Antenne RFID à coller autour de la courbure intérieure du collier
+- Le GPS doit pouvoir "voir le ciel" (pas enfoui sous un bidon de croquettes)
+- Charge USB via connecteur latéral ou pogo pins
+
+---
+
+## 🐾 Fonctionnement
+
+- Lecture RFID toutes les X secondes
+- Si puce détectée → tout va bien
+- Si plus détectée pendant Y cycles → alerte sur canal PERRITOS
+- GPS actif en boucle (intervalle selon mode)
+- Buzzer activable à distance via canal TESORO (mode recherche)
+- LED ou bip à chaque "ping" de confirmation
+
+---
+
+## 🔐 Réglages logiciels
+
+- Nom : `DOGGO_xx`  
+- Canaux : PERRITOS (4), FAMILIA (0), TESORO (6)  
+- GPS : 60s (mode Relax) ou 15s (mode Alerte)  
+- Envoi alerte si puce non détectée pendant 3 cycles  
+- Activation buzzer par commande Meshtastic “find”
+
+---
+
+## 🧟 Avertissements d’usage
+
+- Ne jamais tester le module dans un chenil rempli d’autres puces RFID. Chaos garanti.
+- Si ton chien déclenche l’alerte mais il est toujours là… c’est que le zombie l’a cloné.
+- Le mode zombie émet un bip toutes les 10 secondes — pour attirer les infectés ou les saucisses.
+
+---
+

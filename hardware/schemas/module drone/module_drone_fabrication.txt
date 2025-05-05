@@ -1,0 +1,84 @@
+
+# 🚁 Module Drone - Dossier de Fabrication Officiel (Aéronef Recon ZR-X)
+
+**Code de projet** : UNIT-D001  
+**Rôle** : Plateforme volante de reconnaissance, relais mobile LoRa, surveillance avancée  
+**Statut** : Autonome en vol, tactique, furtif  
+**Version** : Apocalypse-Ready v0.9 (expérimental)
+
+---
+
+## 🎯 Objectif du module
+
+Créer un **drone multirotor équipé LoRa** capable de :
+- Faire du repérage rapide d’une zone
+- Transmettre sa position GPS en vol
+- Relayer des messages LoRa à haute altitude
+- Offrir une vue FPV pour cartographie ou inspection
+- Se transformer en antenne volante temporaire (mode stationnaire)
+
+---
+
+## 🔩 Composants nécessaires
+
+- 1x Frame de drone 5" ou plus
+- 1x Contrôleur de vol (F4/F7 recommandé)
+- 4x ESC + moteurs brushless (selon taille)
+- 1x Batterie LiPo 3S ou 4S (1300–2200mAh)
+- 1x Module ESP32 (LilyGo T-Beam ou T-Echo)
+- 1x GPS (intégré au T-Beam ou déporté)
+- 1x VTX analogique ou système FPV HD (Walksnail, DJI, HDZero…)
+- 1x Caméra FPV
+- 1x Buzzer + LED (optionnel pour repérage visuel/sonore)
+- 1x Régulateur 5V dédié (BEC) pour ESP32
+- 1x Antenne LoRa longue portée (montée à la verticale)
+
+---
+
+## 🪛 Schéma de câblage
+
+- ESP32 + GPS branché sur 5V BEC dédié
+- ESP32 TX/RX isolé du FC (fonctionne en parallèle du système de vol)
+- FPV classique (caméra → VTX → antenne)
+- VTX alimenté via batterie drone ou régulateur 9V
+
+---
+
+## ✈️ Fonctionnalités en vol
+
+- Envoie position GPS chaque X secondes
+- Mode relais : messages LoRa sont répétés depuis le ciel
+- Mode recherche : émet un bip ou clignotement visuel
+- Retour FPV vidéo pour inspection visuelle
+- Peut transmettre un identifiant unique ou status sur canal drone
+- Idéal pour étendre temporairement la portée réseau dans une zone sinistrée ou "zombie-fréquentée"
+
+---
+
+## 🔐 Réglages logiciels
+
+- Nom Meshtastic : `SKYSCOUT_xx`
+- Canaux : FAMILIA (0), TESORO (6), ZOMBIE_APOC (8)
+- GPS intervalle : 5s
+- TX : 23 dBm minimum
+- Mode beacon si inactif plus de 30s (mode stationnaire)
+
+---
+
+## 🧠 Scénarios d'utilisation
+
+- Survol d’une zone suspecte (bruits bizarres au nord ?)
+- Rechercher un module perdu (chien, enfant, humain…)
+- Créer un relais temporaire à 100 m d’altitude
+- FPV live pour inspection de toiture, clairière ou ruine
+
+---
+
+## 🧟 Précautions tactiques
+
+- Toujours vérifier la batterie avant mission : drone qui tombe = drone zombifié
+- Si le retour vidéo devient flou ET que la LED passe rouge = mission compromise
+- Le drone peut émettre sur le canal ZOMBIE_APOC des messages du type : “ILS ARRIVENT PAR LE SUD”
+
+---
+

@@ -1,0 +1,103 @@
+
+# 🚗 Module Véhicule - Dossier de Fabrication Officiel (Unité MOBILO-Z)
+
+**Code de projet** : UNIT-V001  
+**Rôle** : Repaire mobile, relais LoRa roulant, sentinelle silencieuse  
+**Statut** : Autonome, solaire, caché dans le véhicule (ou attaché à une roue de secours)  
+**Version** : Apocalypse-Ready v1.6
+
+---
+
+## 🎯 Objectif du module
+
+Déployer un module **LoRa autonome embarqué dans un véhicule**, capable de :
+- Relayer les messages du réseau Meshtastic
+- Transmettre sa propre position GPS régulièrement
+- Détecter les déplacements non autorisés (mode alarme)
+- Enregistrer l’ambiance sonore (si micro installé)
+- Survivre sans connexion voiture (alimentation solaire dédiée)
+
+---
+
+## 🔩 Composants nécessaires
+
+- 1x ESP32 (T-Beam ou LilyGo T-Echo recommandé pour GPS + LoRa)
+- 1x GPS (intégré)
+- 1x Micro analogique (optionnel, pour surveillance sonore)
+- 1x Buzzer (optionnel)
+- 1x LED RGB (optionnelle, discrète mais stylée)
+- 1x Batterie LiPo ou LiFePO₄ (1000–3000 mAh)
+- 1x Panneau solaire 6V (5W minimum)
+- 1x Contrôleur de charge solaire (TP4056, CN3791…)
+- 1x Boîtier résistant à la chaleur (genre boîte à gant renforcée)
+
+---
+
+## 🧪 Fonctionnalités principales
+
+- Transmission GPS toutes les X minutes (configurable)
+- Mode relais automatique (reçoit / retransmet en continu)
+- Détection de mouvement (via GPS ou accéléromètre)
+- Micro pour ambiance intérieure ou check d'intrusion
+- Activation d’alerte si le véhicule se déplace sans autorisation (mode veille → actif)
+
+---
+
+## 🔌 Schéma de câblage
+
+### Micro analogique (MAX9814)
+
+- **VCC** → 3.3V  
+- **GND** → GND  
+- **OUT** → GPIO 36 (ADC)
+
+### LED RGB (WS2812)
+
+- **Data In** → GPIO 25  
+- **+5V / GND** → régulé via panneau solaire
+
+### Buzzer
+
+- **+** → GPIO 27  
+- **-** → GND
+
+---
+
+## ☀️ Alimentation solaire
+
+- Panneau solaire 5–6V (5W ou plus)
+- Contrôleur de charge compatible LiPo ou LiFePO₄
+- Batterie tampon 1000–3000 mAh
+- Régulation vers 5V → USB ESP32
+
+---
+
+## 📦 Intégration véhicule
+
+- Installation possible dans :
+  - Boîte à gants
+  - Compartiment batterie
+  - Coffre ou plancher
+  - Panneau solaire sur le tableau de bord, orienté vers le pare-brise
+- Boîtier ignifugé conseillé (le soleil tape fort)
+
+---
+
+## 🔐 Réglages logiciels
+
+- Nom Meshtastic : `VEHICULO_xx`
+- Canaux : FAMILIA (0), CASTILLO (3), TESORO (6)
+- GPS intervalle : 120s relax / 15s alerte
+- Activation d’alerte si mouvement détecté pendant que mode “stationnaire” actif
+- Option relais LoRa activé en permanence (TX RX auto)
+
+---
+
+## 🧟 Notes de sécurité mobile
+
+- Si le véhicule démarre et qu’il n’a pas été déclaré mobile… alerte sur ALERTA_ROJA.
+- En cas de capture du véhicule par une horde, le module continue à émettre jusqu’à ce que la batterie lâche… ou le pare-brise fonde.
+- “Station de surveillance furtive” = module caché + pare-soleil + nom de code : *ZebraMobile-13*
+
+---
+

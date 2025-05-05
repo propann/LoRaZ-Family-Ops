@@ -1,0 +1,104 @@
+
+# 🏠 Module Maison - Dossier de Fabrication Officiel (Base Z.A.R. - Zone Antizombie Résidente)
+
+**Code de projet** : UNIT-B001  
+**Rôle** : QG LoRa familial, passerelle de survie, centre de traitement et d’alerte  
+**Statut** : Fixe, autonome, multitâche  
+**Version** : Apocalypse-Ready v3.0
+
+---
+
+## 🎯 Objectif du module
+
+Offrir à la cellule familiale une **base fixe et intelligente** pour :
+- Recevoir les messages et positions de tous les modules (humains, chiens, enfants, véhicules…)
+- Surveiller les zones critiques avec des flows automatisés (Node-RED)
+- Visualiser l’activité via des dashboards (Grafana)
+- Alerter en cas d’événement (fugue, intrusion, fin du stock de croquettes)
+- Servir de relais MQTT/LoRa, même en l’absence d’internet
+
+---
+
+## 🔩 Composants nécessaires
+
+- 1x Raspberry Pi (Pi 3B+, Pi 4, Pi 5 recommandé)
+- 1x Clé LoRa (USB Heltec, RFM95 + adaptateur, ou T-Beam branché en USB)
+- 1x Carte microSD rapide (ou SSD/NVMe si dispo)
+- 1x Connexion réseau (Wi-Fi, Ethernet, fallback)
+- 1x Panneau solaire avec batterie (optionnel, recommandé pour autonomie)
+- 1x Boîtier avec aération (le Pi, ça chauffe quand y’a des alertes zombies)
+
+---
+
+## 🧰 Logiciels à déployer
+
+- **Mosquitto** (broker MQTT)
+- **Node-RED** (flows de logique et alertes)
+- **Grafana** (dashboards GPS, énergie, capteurs)
+- **InfluxDB** (stockage des données)
+- **Meshtastic-Gateway** (relais LoRa ↔ MQTT)
+- **Suricata** (optionnel : surveillance réseau)
+- **ATAK-Server** (optionnel : cartographie tactique ATAK)
+
+Tous ces services sont conteneurisables (via Docker/Podman).
+
+---
+
+## 🧪 Fonctionnalités principales
+
+- Collecte de données GPS et capteurs (via MQTT Meshtastic)
+- Analyse des positions par Node-RED pour détecter :
+  - Sortie de zone (géofence)
+  - Arrêt de signal (module perdu)
+  - Batterie faible
+- Envoi d’alertes sur canaux Telegram, mail, push, etc.
+- Affichage sur écran local ou accès distant par navigateur
+
+---
+
+## ⚙️ Câblage & interfaces
+
+- LoRa via port USB (ttyUSB0 → Meshtastic-Gateway)
+- Capteurs optionnels : température, présence, PIR via GPIO (si utilisé)
+- Écran HDMI pour console ou écran LCD TFT SPI (pour info locale)
+- Bouton d’arrêt sécurisé sur GPIO (ou bouton rouge de panique)
+
+---
+
+## 📦 Boîtier conseillé
+
+- Boîtier imprimé ou recyclé (ancienne box, Tupperware de l’apocalypse)
+- Aération passive ou mini-ventilo 5V
+- Antenne LoRa sortie externe (gain recommandé)
+- Accès facile aux ports (USB, microSD)
+
+---
+
+## 🔐 Paramétrage logiciel
+
+- MQTT bridge configuré pour écouter le canal FAMILIA (0) et tous les autres
+- Node-RED : flows pour chaque module identifié
+- Grafana : dashboards en lecture seule pour visualiser tout le réseau
+- Meshtastic-Gateway en mode relais + logs en local
+- Sauvegarde quotidienne des données InfluxDB vers stockage externe
+
+---
+
+## ☀️ Autonomie énergétique (optionnel mais classe)
+
+- Panneau solaire 6–12V
+- Contrôleur de charge
+- Batterie LiFePO₄ ou power bank solide
+- Régulateur 5V vers Pi (USB ou GPIO)
+
+---
+
+## 🧟‍♂️ Recommandations tactiques
+
+- Placer la base dans une zone semi-centrale avec visibilité LoRa maximale
+- Prévoir une antenne déportée si murs blindés (ou voisins hostiles)
+- En cas de panne complète, laisser une LED verte visible : “on est encore vivants”
+- Nommer le Pi `BASE_CASTILLO` ou `FORTRESS_MAIN` dans le canal CASTILLO
+
+---
+
