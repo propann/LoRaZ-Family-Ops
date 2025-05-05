@@ -1,0 +1,7 @@
+# 🌐 Dockerfile - Meshtastic-Gateway
+FROM python:3.11-slim
+
+WORKDIR /app
+RUN pip install meshtastic paho-mqtt
+COPY . /app
+CMD ["python", "meshtastic-gateway.py", "--port", "/dev/ttyUSB0"]

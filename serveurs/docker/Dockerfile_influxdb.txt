@@ -1,0 +1,3 @@
+# 📈 Dockerfile - InfluxDB
+FROM influxdb:1.8
+# Pour Influx 2.x, on adaptera l'entréepoint ou setup.sh

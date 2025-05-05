@@ -1,0 +1,24 @@
+
+# 🔴 Node-RED - Installation Classique
+
+## Rôle
+Automation, flows de logique, alertes géofencing, mode zombie, etc.
+
+## Installation
+```bash
+bash <(curl -sL https://raw.githubusercontent.com/node-red/linux-installers/master/deb/update-nodejs-and-nodered)
+```
+
+## Démarrage automatique
+```bash
+sudo systemctl enable nodered.service
+```
+
+Accès via : `http://<IP>:1880`
+
+## Fichiers utiles
+- Flows : `~/.node-red/flows_<hostname>.json`
+- Log : `journalctl -u nodered -f`
+
+## Conseil apocalypse
+Tout ce qui bouge dehors, c’est un flow qui doit se déclencher.

@@ -1,0 +1,34 @@
+
+# 🛡️ Suricata - Installation Classique
+
+## Rôle
+Système de détection d’intrusion réseau (IDS) pour surveiller l’activité locale.  
+Permet de repérer des comportements suspects (infiltration de botnet zombie ou ados pirates).
+
+---
+
+## Installation
+
+```bash
+sudo apt update
+sudo apt install -y suricata
+```
+
+## Démarrage
+
+```bash
+sudo systemctl enable suricata
+sudo systemctl start suricata
+```
+
+## Fichiers
+- Config principale : `/etc/suricata/suricata.yaml`
+- Logs : `/var/log/suricata/`
+
+## Utilisation
+- Analyse des paquets réseau en live
+- Couplage avec Grafana pour visualisation (via Loki ou Kibana)
+- Alertes Node-RED en cas d’anomalie critique
+
+## Conseil apocalypse
+Si Suricata détecte un pic d’activité sur un port obscur… on prépare les barricades.

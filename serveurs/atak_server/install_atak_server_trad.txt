@@ -1,0 +1,30 @@
+
+# 🗺️ ATAK Server - Installation Classique
+
+## Rôle
+Serveur de cartographie tactique compatible avec l'app ATAK. Permet le partage de positions, messages, cibles et autres infos géospatiales entre membres du réseau.
+
+---
+
+## Installation (basique sur Raspberry Pi OS)
+
+```bash
+sudo apt update
+sudo apt install -y default-jre unzip wget
+wget https://tak.dev/downloads/atak-civ-server.zip
+unzip atak-civ-server.zip
+cd atak-server
+./runServer.sh
+```
+
+> ☢️ Attention : le serveur ATAK est plus exigeant sur Pi, privilégier un Pi 4 ou 5 avec SSD.
+
+## Port par défaut : 8443
+
+## Configuration
+- Interface Web via HTTPS
+- Certificats à gérer manuellement
+- Peut être intégré via Node-RED pour transfert de données Meshtastic
+
+## Conseil apocalypse
+Cartographier les zones mortes et les clusters zombies : priorité tactique n°1.

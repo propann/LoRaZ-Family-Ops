@@ -1,0 +1,3 @@
+# 📊 Dockerfile - Grafana
+FROM grafana/grafana:latest
+# Volume conseillé pour les dashboards et config

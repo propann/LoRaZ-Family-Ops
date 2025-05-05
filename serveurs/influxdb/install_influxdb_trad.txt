@@ -1,0 +1,20 @@
+
+# 📈 InfluxDB - Installation Classique
+
+## Rôle
+Base de données pour stocker les données GPS, température, énergie, etc.
+
+## Installation
+```bash
+wget -qO- https://repos.influxdata.com/influxdb.key | sudo gpg --dearmor -o /usr/share/keyrings/influxdb-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/influxdb-archive-keyring.gpg] https://repos.influxdata.com/debian stable main" | sudo tee /etc/apt/sources.list.d/influxdb.list
+sudo apt update
+sudo apt install -y influxdb
+sudo systemctl enable influxdb
+sudo systemctl start influxdb
+```
+
+## Port : 8086
+
+## Conseil apocalypse
+Influx = mémoire du réseau. Pas de data ? Pas d’histoire à raconter après l’invasion.

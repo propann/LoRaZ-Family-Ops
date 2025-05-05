@@ -1,0 +1,28 @@
+
+# 🐝 Mosquitto - Installation Classique
+
+## Rôle
+Broker MQTT pour faire transiter les messages LoRa ↔ Internet local.
+
+## Installation
+```bash
+sudo apt update
+sudo apt install -y mosquitto mosquitto-clients
+sudo systemctl enable mosquitto
+sudo systemctl start mosquitto
+```
+
+## Port par défaut : 1883
+
+## Configuration
+Fichier : `/etc/mosquitto/mosquitto.conf`
+
+Ajouter une config perso si besoin :
+```bash
+listener 1883
+allow_anonymous true
+```
+(pour test uniquement — ne pas faire en public !)
+
+## Conseil apocalypse
+Si le broker tombe, considérez que les zombies ont mangé le réseau local.

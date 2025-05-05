@@ -1,0 +1,7 @@
+# 🗺️ Dockerfile - ATAK Server
+FROM openjdk:17-jdk-slim
+
+WORKDIR /atak
+COPY . /atak
+RUN chmod +x runServer.sh
+CMD ["./runServer.sh"]

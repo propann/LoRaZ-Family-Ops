@@ -1,0 +1,3 @@
+# 🔴 Dockerfile - Node-RED
+FROM nodered/node-red:latest
+# Aucun fichier supplémentaire nécessaire si on garde la config par défaut

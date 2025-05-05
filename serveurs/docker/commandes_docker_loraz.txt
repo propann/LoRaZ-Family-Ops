@@ -1,0 +1,102 @@
+
+# 🧰 Commandes Docker utiles - Projet LauraZFamilyOops
+
+Cette fiche regroupe toutes les commandes de base pour travailler avec les conteneurs Docker utilisés dans le réseau familial antizombie.
+
+---
+
+## 📦 Construction des conteneurs
+
+Chaque service dispose d’un Dockerfile. Pour construire une image à partir d’un dossier :
+
+```bash
+docker build -t loraz/<nom_service> ./serveurs/docker/<nom_service>
+```
+
+Exemple :
+```bash
+docker build -t loraz/mosquitto ./serveurs/docker/mosquitto
+```
+
+---
+
+## 🚀 Lancement d’un conteneur
+
+```bash
+docker run -d --name <nom_service> --restart=always -p <port>:<port> loraz/<nom_service>
+```
+
+Exemple :
+```bash
+docker run -d --name mosquitto --restart=always -p 1883:1883 loraz/mosquitto
+```
+
+---
+
+## 🔍 Vérification et surveillance
+
+Lister tous les conteneurs :
+```bash
+docker ps -a
+```
+
+Voir les logs d’un conteneur :
+```bash
+docker logs -f <nom_service>
+```
+
+Exemple :
+```bash
+docker logs -f grafana
+```
+
+---
+
+## 🧹 Gestion et nettoyage
+
+Arrêter un conteneur :
+```bash
+docker stop <nom_service>
+```
+
+Redémarrer un conteneur :
+```bash
+docker start <nom_service>
+```
+
+Supprimer un conteneur :
+```bash
+docker rm -f <nom_service>
+```
+
+Supprimer une image :
+```bash
+docker rmi loraz/<nom_service>
+```
+
+---
+
+## 🛠️ Mise à jour d’un service
+
+1. Modifier le Dockerfile ou les fichiers liés
+2. Rebuilder :
+```bash
+docker build -t loraz/<nom_service> ./serveurs/docker/<nom_service>
+```
+3. Supprimer le conteneur :
+```bash
+docker rm -f <nom_service>
+```
+4. Relancer le nouveau :
+```bash
+docker run ...
+```
+
+---
+
+## 🧟 Astuce apocalypse
+
+Tu peux tout automatiser avec un petit script bash interactif. (Voir `lancer_serveurs_loraz.sh` dans ce dépôt.)
+
+> "Un réseau qui ne redémarre pas en 2 commandes est un réseau vulnérable..."
+
