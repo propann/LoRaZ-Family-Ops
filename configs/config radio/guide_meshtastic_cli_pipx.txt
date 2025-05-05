@@ -1,0 +1,90 @@
+
+# ⚙️ Guide d’installation Meshtastic CLI - Édition Résistance GAFAM + Apocalypse Zombie
+
+Bienvenue dans ce guide d’installation 100 % libre, 100 % post-apo, pour configurer votre CLI Meshtastic en toute sécurité, sans pip global foireux ni conflit avec les scripts du bunker.
+
+---
+
+## 📦 Prérequis
+
+- Python 3.8 ou supérieur installé
+- pipx installé (le héros discret de la résistance Python)
+- Un terminal et un module LoRa qui n’a pas encore pris feu
+
+---
+
+## 🔧 Étape 1 : Installer pipx
+
+### 🔹 Sous Linux / macOS
+
+```bash
+python3 -m pip install --user pipx
+python3 -m pipx ensurepath
+```
+
+🔁 Ferme et rouvre ton terminal si nécessaire pour que `pipx` soit reconnu.
+
+---
+
+### 🔹 Sous Windows (PowerShell)
+
+```powershell
+python -m pip install --user pipx
+python -m pipx ensurepath
+```
+
+🔁 Redémarre PowerShell après l’installation.
+
+---
+
+## 🧙‍♂️ Étape 2 : Installer Meshtastic CLI avec pipx
+
+```bash
+pipx install meshtastic
+```
+
+Et voilà. La commande `meshtastic` est maintenant accessible depuis n’importe où, même en courant après ton chien dans la forêt.
+
+---
+
+## ✅ Vérification
+
+Teste la commande :
+
+```bash
+meshtastic --help
+```
+
+Tu dois voir s'afficher l’aide officielle de la CLI Meshtastic. Si tu vois une erreur, respire, vérifie le chemin, relance le terminal, ou sacrifie un câble USB.
+
+---
+
+## 🧽 Désinstallation (si un zombie a foutu le bazar)
+
+```bash
+pipx uninstall meshtastic
+```
+
+💥 Et hop, plus rien. Pas de dépendances orphelines, pas de drame.
+
+---
+
+## 🧠 Pourquoi pipx ?
+
+- ✅ Propre : chaque outil est isolé
+- ✅ Facile à mettre à jour
+- ✅ Compatible avec tout système
+- ✅ Idéal pour les environnements légers (Raspberry Pi, machines air-gap)
+
+---
+
+## 💀 Notes de terrain
+
+- Le firmware Meshtastic se met à jour à part (via CLI ou OTA si activé)
+- Pense à relier ton module via USB avant d'utiliser les commandes
+- Évite les hubs USB douteux pendant les mises à jour. On en a perdu un comme ça.
+
+---
+
+🎉 Bravo, tu es prêt à piloter ton réseau LoRa à la main, comme un vrai résistant numérique. Si ce guide t’a sauvé la vie, envoie une trame LoRa codée vers la balise `ZOMBIE_APOC`.
+
