@@ -4,14 +4,14 @@ Objectif :
 Ce module est connecté en USB au Raspberry Pi 5. Il agit comme passerelle LoRa <=> MQTT.
 
 Réglages :
-- Connexion Wi-Fi : Livebox-53D4
-  - SSID : Livebox-53D4
-  - Mot de passe : H6zv6bnSXV4Hd9v57t
+- Connexion Wi-Fi : 
+  - SSID : 
+  - Mot de passe : 
 - MQTT :
-  - Hôte : 192.168.1.54
-  - Port : 1883
-  - Utilisateur : meshtastic
-  - Mot de passe : azoth
+  - Hôte : 
+  - Port : 
+  - Utilisateur : 
+  - Mot de passe : 
 - Canaux actifs :
   - Canal 0 : FAMILIA (clé PSK partagée)
   - Tous les autres canaux sont configurés mais désactivés

@@ -1,0 +1,36 @@
+
+Projet : Réseau Familial Meshtastic - Bases Secondaires
+------------------------------------------------------------------
+
+Contexte :
+Afin de renforcer la robustesse, la portée et la résilience du réseau familial Meshtastic, plusieurs membres de la famille peuvent héberger des Raspberry Pis avec des modules LoRa. Ces stations secondaires, appelées "bases secondaires", agissent comme relais, serveurs locaux, ou stations de capteurs.
+
+Objectifs :
+- Étendre la portée LoRa dans différentes zones géographiques (habitations, chalets, dépendances, etc.)
+- Ajouter de la redondance (si la base principale tombe, les secondaires prennent le relais)
+- Offrir des points d'accès privés ou communautaires dans la famille
+- Héberger des fonctions spécifiques selon les besoins (capteurs, passerelles, dashboards, etc.)
+
+Matériel typique :
+- Raspberry Pi 3 ou Pi Zero W
+- Module LoRa USB ou SPI (type RFM95 ou Heltec USB Stick)
+- Connexion Wi-Fi (ou Ethernet si disponible)
+- Capteurs optionnels selon fonction (météo, intrusion, température, etc.)
+- Antenne externe ou discrète selon emplacement
+
+Fonctions possibles selon le rôle :
+1. **Relais LoRa simple** : passerelle LoRa-MQTT sans interface graphique
+2. **Station capteur** : mesure locale (météo, bruit, mouvements...) → MQTT
+3. **Mini-dashboard** : interface web (Grafana/Node-RED) pour visualisation locale
+4. **Proxy OTA** : diffusion des mises à jour firmware aux modules à proximité
+5. **Serveur de messages offline** : stockage/retransmission différée si pas de lien temps réel
+
+Réseau :
+- Intégrées dans le canal FAMILIA par défaut
+- Possibilité d’être connectées à d’autres canaux selon leur rôle
+- Coordonnées fixes enregistrées pour chaque base
+
+Statut :
+Concept validé pour solidifier le maillage familial. Les bases secondaires peuvent être mises en service progressivement, en fonction des lieux disponibles et des besoins de couverture.
+
+------------------------------------------------------------------

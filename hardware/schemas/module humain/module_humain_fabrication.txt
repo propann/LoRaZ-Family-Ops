@@ -1,0 +1,138 @@
+
+# 🧔 Module Humain - Dossier de Fabrication Officiel (Z.A.R. - Zone Autonome Résistante)
+
+**Code de projet** : UNIT-H001  
+**Rôle** : Éclaireur, messager, survivant communicant  
+**Statut** : Portable, autonome, semi-interactif  
+**Version** : Apocalypse-Ready v2.1  
+
+---
+
+## 🧩 Objectif du module
+
+Permettre à un humain en vadrouille (ou en fuite) :
+- D’envoyer et recevoir des messages LoRa
+- De changer de mode (relax, urgence, zombie…)
+- De transmettre sa position GPS
+- D’émettre un signal vocal PTT
+- De rester informé même sans infrastructure
+
+---
+
+## 🔩 Composants nécessaires
+
+- 1x T-Beam (ESP32 + LoRa SX1262 + GPS intégré)
+- 1x Écran OLED (déjà présent sur T-Beam)
+- 1x Encodeur rotatif cliquable (EC11 ou équivalent)
+- 1x Bouton PTT (momentané, gros doigt-friendly)
+- 1x Micro analogique (optionnel — MAX9814 recommandé)
+- 1x Buzzer (optionnel pour feedback sonore ou radar-beep)
+- 1x LED RGB (optionnel pour état visuel)
+- 1x Batterie Li-Ion 18650 ou LiPo + chargeur TP4056
+- 1x Interrupteur général ON/OFF
+- 1x Boîtier imprimé ou bricolé
+- 1x Panneau solaire USB 5V (optionnel mais conseillé)
+
+---
+
+## 🪛 Schéma de câblage de l'encodeur rotatif
+
+### Encodeur EC11 → T-Beam (ESP32)
+
+- **GND** → GND (T-Beam)
+- **VCC** → 3.3V (T-Beam)
+- **CLK** → GPIO 34
+- **DT**  → GPIO 35
+- **SW (bouton intégré)** → GPIO 32
+
+> 🧠 Astuce de survie : Debounce logiciel conseillé pour éviter les faux positifs quand un zombie secoue ton sac.
+
+---
+
+## 🎤 Système vocal (optionnel)
+
+### Micro analogique MAX9814 → T-Beam
+
+- **VCC** → 3.3V
+- **GND** → GND
+- **OUT** → GPIO 36 (ADC)
+
+### Option future :
+Ajout d’un mini ampli + haut-parleur pour feedback vocal local (mode talkie LoRa).
+
+---
+
+## 🔊 Buzzer (optionnel)
+
+- **+** → GPIO 27
+- **-** → GND
+
+Permet d’indiquer :
+- Changement de mode
+- Message reçu
+- Alerte géofence
+- Radar de recherche (beep rapide si proximité)
+
+---
+
+## 🌈 LED RGB (optionnelle)
+
+- Utiliser une WS2812 ou NeoPixel
+- **Data In** → GPIO 25
+- **Alim** : 5V via régulateur si besoin
+
+Utilisation typique :
+- Bleu = mode relax
+- Rouge = alerte
+- Vert = OK
+- Arc-en-ciel = mode ZOMBIE_APOC activé
+
+---
+
+## ⚡ Alimentation
+
+- **Batterie 18650** avec support et protection
+- **Chargeur TP4056 USB avec diode protection**
+- **Sortie 5V régulée vers T-Beam via AMS1117 si besoin**
+- Possibilité d’alimentation solaire USB 5V directement sur TP4056
+
+---
+
+## 📦 Boîtier conseillé
+
+- Impression 3D en PLA/PETG ou boîte résistante type “geocache”
+- Ouverture facile pour recharge
+- Fenêtre OLED visible
+- Passage antenne LoRa + bouton PTT + encodeur
+
+---
+
+## 🎮 Contrôle utilisateur
+
+- Tourner l’encodeur = naviguer dans menus (mode, messages)
+- Appui court = valider une action
+- Bouton PTT = talkie
+- LED/Buzzer = feedback
+- Micro = enregistrement (future feature)
+
+---
+
+## 🔐 Réglages logiciels
+
+- Configuration Meshtastic :
+  - Nom : `SCOUT_xx`
+  - Canaux : FAMILIA (0), ALERTA_ROJA (5), TESORO (6)
+  - Mode GPS : dynamique (60s - 5s selon mode)
+- Script CLI pour assignation rapide
+- Option OTA via base maison (si activé)
+
+---
+
+## 🧟‍♂️ Notes d’usage post-apocalyptique
+
+- Si le bouton encodeur commence à cliquer tout seul, il est probablement hanté.
+- Ne jamais appuyer sur les deux boutons en même temps à proximité d’un champ de maïs (légende locale).
+- Une LED rouge qui clignote lentement = batterie faible… ou entité parasite dans le firmware.
+
+---
+

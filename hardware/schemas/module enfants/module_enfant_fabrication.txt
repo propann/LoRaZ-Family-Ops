@@ -1,0 +1,96 @@
+
+# 🧒 Module Enfant - Dossier de Fabrication Officiel (Programme SAFE-KID)
+
+**Code de projet** : UNIT-K001  
+**Rôle** : Suivi, alerte simple, communication pictogramme  
+**Statut** : Portable, ultra-simple, résistant à la vie réelle  
+**Version** : Apocalypse-Ready v1.4
+
+---
+
+## 🎯 Objectif du module
+
+Donner aux enfants la capacité de :
+- Être localisables en tout temps
+- Émettre un signal d’alerte (bouton SOS)
+- Répondre par pictogrammes (OK, smiley, météo…)
+- Être intégrés au réseau familial sans smartphone ni clavier
+
+---
+
+## 🔩 Composants nécessaires
+
+- 1x LilyGo T5 V2.13" ou 2.7" E-Ink (ESP32)
+- 1x GPS (intégré ou en module I2C)
+- 1x Batterie LiPo + circuit de charge (TP4056)
+- 3x Boutons physiques :
+  - SOS
+  - OK
+  - Bouton émotion (smiley / météo)
+- 1x Buzzer (optionnel)
+- 1x Boîtier résistant, enfant-proof
+- 1x Dragonne ou clip d’attache
+- 1x Éventuellement une LED RGB pour feedback simple
+
+---
+
+## 🪛 Schéma de câblage des boutons
+
+- **SOS** → GPIO 25  
+- **OK** → GPIO 26  
+- **Emotion** → GPIO 27  
+- Résistances de pull-down recommandées (ou activation interne)
+
+---
+
+## 🔊 Buzzer (optionnel)
+
+- **+** → GPIO 33  
+- **-** → GND  
+Utilisé pour alerter en cas de géofence franchie ou bouton SOS pressé.
+
+---
+
+## ⚡ Alimentation
+
+- Batterie LiPo 3.7V  
+- Module TP4056 avec micro-USB pour recharge  
+- Régulateur 3.3V intégré sur carte LilyGo
+
+---
+
+## 📦 Boîtier conseillé
+
+- Petit boîtier plastique ou impression 3D
+- Étanche ou au moins résistant aux projections
+- Coin arrondi, sans pièces coupantes (ça reste un enfant)
+- E-Ink bien lisible même en plein soleil
+
+---
+
+## 👦 Contrôle utilisateur
+
+- Appui sur bouton SOS → envoi d’alerte sur canal ALERTA_ROJA (canal 5)
+- Appui sur bouton OK → acquittement simple
+- Appui sur bouton émotion → pictogramme transmis ou emoji
+
+---
+
+## 🔐 Réglages logiciels
+
+- Nom Meshtastic : `SAFEKID_xx`
+- Canaux : FAMILIA (0), ALERTA_ROJA (5), PERRITOS (4 si associé à une zone)
+- GPS actif, intervalle 120s
+- TX Power : 17 dBm (mode Relax par défaut)
+- Mode sonore désactivable à distance (si la sieste est en cours)
+
+---
+
+## 🧟‍♀️ Notes d’usage post-apocalyptique
+
+- Le module ne doit **jamais être confondu avec une tablette de chocolat**.
+- Si l’enfant émet un emoji 🧟, évacuez immédiatement la zone.
+- Fonction "cache-cache sécurisé" en cours de développement...
+
+---
+

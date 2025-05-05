@@ -1,0 +1,43 @@
+
+Projet : Réseau Familial Meshtastic - Module Enfant
+---------------------------------------------------------------
+
+Contexte :
+Conception d’un module LoRa destiné aux enfants dans le cadre du réseau familial. Le module doit être simple, robuste, facile à comprendre et à manipuler, même sans savoir lire. L’objectif est de permettre à l’enfant de signaler son état ou de recevoir des instructions en toute autonomie.
+
+Résumé des fonctionnalités prévues :
+
+- Matériel de base :
+  - Carte LilyGo avec écran E-Ink (T5 2.13” ou 2.7” par exemple)
+  - GPS intégré (ou position approximée transmise par proximité LoRa)
+  - Batterie rechargeable LiPo ou 18650
+  - Buzzer pour alerte simple
+  - Boîtier solide et ergonomique
+
+- Interface utilisateur :
+  - Écran E-Ink pour affichage de messages simples ou pictogrammes
+  - Boutons physiques dédiés :
+    - Bouton SOS (urgence)
+    - Bouton OK (confirmation ou réponse)
+    - Bouton émotion (smiley, météo, ou autre pictogramme à définir)
+
+- Communication :
+  - Réception de messages LoRa (pictos ou courts textes)
+  - Envoi automatique de la position GPS toutes les X minutes
+  - Envoi d’alertes via bouton SOS
+  - Réponse simple via bouton OK ou pictogramme
+
+- Sécurité :
+  - Résistance à l’eau légère (pluie, éclaboussures)
+  - Boucle ou attache pour porter autour du cou ou sur un sac
+  - Aucune configuration visible ou accessible pour éviter les erreurs
+
+Notes :
+- L’écran E-Ink permet une lecture facile sans rétroéclairage, parfait pour l’autonomie
+- Les pictogrammes peuvent être adaptés à l’âge ou au contexte
+- Le module peut évoluer vers un format “montre” ou badge si miniaturisé
+
+Statut :
+Concept validé, simple et accessible. Idéal pour assurer un lien avec les plus jeunes membres de la famille dans un réseau sécurisé, sans dépendance au smartphone.
+
+---------------------------------------------------------------

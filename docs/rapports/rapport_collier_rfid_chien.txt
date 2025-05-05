@@ -1,0 +1,35 @@
+
+Projet : Réseau Familial Meshtastic - Idée du collier intelligent pour chien
+----------------------------------------------------------------------------
+
+Contexte :
+L'utilisateur développe un réseau LoRa basé sur Meshtastic, avec des nœuds répartis dans la famille, y compris pour les chiens. Une idée innovante a émergé : intégrer un module RFID dans le collier du chien pour détecter le retrait ou l'absence de la puce sous-cutanée, et déclencher automatiquement une alerte via LoRa.
+
+Résumé de l'idée :
+- Le collier contient un ESP32 avec LoRa + GPS.
+- Un lecteur RFID basse fréquence (134.2 kHz) est intégré dans le collier.
+- Le lecteur scanne régulièrement la puce sous-cutanée du chien (norme ISO 11784/11785 FDX-B).
+- Si la puce n'est plus détectée après un certain temps (ex. : 30 secondes ou 1 minute), le module envoie un message d'alerte sur le canal ALERTA_ROJA du réseau Meshtastic.
+
+Objectif :
+- Détection autonome de retrait du collier ou disparition du chien sans infrastructure fixe.
+- Fonctionne en totale autonomie, sans borne ni lecteur fixe.
+- Système de surveillance mobile et intelligent intégré à l'animal.
+
+Modules envisagés :
+- ESP32 (type LilyGo T-Beam ou équivalent compact)
+- GPS intégré
+- Lecteur RFID 134.2 kHz compatible ISO 11784/85 en UART/TTL
+- Batterie légère rechargeable
+
+Logiciel :
+- Firmware basé sur Meshtastic, avec modification légère pour ajouter une fonction de surveillance RFID locale
+- Communication LoRa standard sur canal sécurisé
+- Message texte d’alerte déclenché via API interne si la puce n’est pas détectée
+
+Statut :
+- Idée validée comme faisable techniquement
+- Prochaine étape : identifier le lecteur RFID compact compatible, tester la portée de lecture, et intégrer au firmware Meshtastic
+
+----------------------------------------------------------------------------
+

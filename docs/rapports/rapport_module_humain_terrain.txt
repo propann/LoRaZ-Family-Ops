@@ -1,0 +1,48 @@
+
+Projet : Réseau Familial Meshtastic - Module Humain de Terrain
+---------------------------------------------------------------
+
+Contexte :
+Développement d’un module portable pour les membres humains du réseau familial, orienté usage en terrain post-apocalyptique ou situations d'urgence. L'objectif est de créer un appareil autonome, robuste, interactif et évolutif, centré sur les fonctions de communication, géolocalisation et signalement.
+
+Résumé des fonctionnalités prévues :
+
+- Matériel de base :
+  - Carte T-Beam (ESP32 + GPS + LoRa)
+  - Batterie Li-ion ou LiPo rechargeable
+  - Buzzer pour signalement
+  - LED RGB ou multicolore pour retour visuel
+  - Micro analogique simple (type MAX9814)
+  - Encodeur rotatif cliquable pour navigation
+  - Bouton PTT (push-to-talk)
+  - Bouton “retour” (optionnel)
+
+- Communication :
+  - LoRa via Meshtastic
+  - Envoi de messages texte
+  - Réception d’alertes
+  - Possibilité d’envoi vocal simplifié à terme
+
+- Interface :
+  - Écran OLED déjà intégré sur T-Beam
+  - Navigation via encodeur (menu, sélection)
+  - PTT pour messages directs ou mode vocal futur
+
+- Fonctions évolutives :
+  - Gestion de modes (relax, urgence, recherche, etc.)
+  - Détection sonore, retour sonore via buzzer
+  - Connecteur externe prévu pour ajouter :
+    - Un **clavier détachable** pour saisie de texte avancée
+    - Communication via port série (UART/I2C) ou USB selon ESP32
+    - Alimentation partagée ou indépendante pour le clavier
+
+Notes :
+- Le module doit rester compact mais modulaire
+- Le clavier détachable permet de garder la radio discrète la plupart du temps
+- Le PTT est une fonctionnalité essentielle, prioritaire dans le design
+- Un boîtier étanche ou semi-rigide est à envisager pour protéger l’ensemble
+
+Statut :
+Concept validé et prêt à être maquetté. Le clavier détachable, les boutons physiques et le retour sonore en font un outil de terrain extrêmement complet, tout en restant simple d’utilisation.
+
+---------------------------------------------------------------

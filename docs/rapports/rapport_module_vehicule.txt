@@ -1,0 +1,40 @@
+
+Projet : Réseau Familial Meshtastic - Module Véhicule Autonome
+------------------------------------------------------------------
+
+Contexte :
+Développement d’un module autonome à placer dans un véhicule (voiture, remorque, van, vélo cargo, etc.) pour surveiller ses déplacements, étendre le réseau LoRa en mobilité, et assurer un relais de communication mobile. Le module est pensé comme discret, alimenté en énergie solaire et indépendant du véhicule lui-même.
+
+Fonctionnalités prévues :
+
+- Matériel de base :
+  - Carte ESP32 LoRa (ex : T-Beam ou T3-S3)
+  - GPS actif pour géolocalisation
+  - Panneau solaire discret sur le tableau de bord
+  - Batterie LiPo ou 18650 avec régulateur solaire
+  - Antenne LoRa optimisée pour la carrosserie
+  - Micro analogique intégré (surveillance audio passive)
+  - Boîtier planqué dans l’habitacle ou le coffre
+
+- Fonction :
+  - Suivi GPS régulier transmis via canal EXPLORA ou ALERTA_ROJA
+  - Détection de mouvement (GPS + accéléromètre possible)
+  - Enregistrement audio passif sur déclenchement (micro toujours actif ou en écoute conditionnelle)
+  - Peut servir de relais LoRa pour étendre la portée réseau
+  - Envoi d’alerte en cas de déplacement non autorisé (geofence inversé)
+  - Peut relayer d’autres modules proches en mode mobile
+
+- Communication :
+  - LoRa uniquement (pas de Wi-Fi sauf si parking équipé)
+  - Intégré dans les canaux existants du réseau (EXPLORA, ALERTA_ROJA)
+  - Message de statut périodique ou à l’arrêt
+
+- Autonomie et alimentation :
+  - Chargement solaire via panneau discret collé derrière pare-brise
+  - Module planqué et autoalimenté, sans lien avec l’électronique du véhicule
+  - Autonomie étendue avec batterie tampon
+
+Statut :
+Module validé comme relais furtif et surveillance mobile. Étend le réseau et permet de suivre ou sécuriser les véhicules de la famille dans un style 100 % décentralisé.
+
+------------------------------------------------------------------

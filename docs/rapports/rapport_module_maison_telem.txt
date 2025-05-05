@@ -1,0 +1,37 @@
+
+Projet : Réseau Familial Meshtastic - Extension Télémétrique du Module Maison
+------------------------------------------------------------------------------
+
+Contexte :
+Le module maison (passerelle principale LoRa <-> MQTT) devient également un centre de surveillance environnementale, domestique et de sécurité. Il est fixe, alimenté en permanence et connecté au réseau local, ce qui en fait un candidat idéal pour la télémétrie.
+
+Fonctions de base déjà existantes :
+- Gateway USB vers Meshtastic (ESP32 + LoRa + MQTT)
+- Accès Wi-Fi local à Mosquitto + Node-RED
+- Réception de tous les canaux LoRa (0 à 7)
+- GPS désactivé (stationnaire)
+
+Ajouts prévus (télémétrie) :
+- Capteur de température et humidité (BME280 ou DHT22)
+- Capteur de qualité de l'air : CO2 / COV (type MQ135 ou SGP30)
+- Détecteur de mouvement PIR pour activité autour de la maison
+- Capteur d'ouverture magnétique pour porte ou fenêtre
+- Micro analogique (détection bruit anormal ou présence)
+- Capteur de vibration ou accéléromètre (chocs ou mouvements)
+
+Utilisation des données :
+- Publication des mesures en MQTT (topic par capteur)
+- Ingestion automatique dans InfluxDB via Node-RED
+- Alertes configurées dans Node-RED (ex : mouvement détecté, air vicié)
+- Visualisation en temps réel via Grafana
+
+Connectivité :
+- Tous les capteurs connectés en I2C, SPI ou GPIO selon compatibilité
+- Firmware ESP modifié au besoin pour intégrer la lecture et la publication
+- Alimentation par USB stable, éventuellement UPS pour panne secteur
+
+Statut :
+Module maison enrichi en hub domotique local LoRa + environnement. Point central du réseau de terrain, avec une capacité de détection avancée et une intégration fluide avec l’infrastructure existante.
+
+------------------------------------------------------------------------------
+
