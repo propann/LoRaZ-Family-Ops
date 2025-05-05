@@ -1,0 +1,11 @@
+Flow 08 – Monitoring Santé
+----------------------------------
+Fonction :
+Lit les infos de santé des modules (battery, température, satellites) et les envoie dans InfluxDB.
+
+Réglages :
+- Topic : msh/EU_868/telemetry/+/nodeInfo
+- DB : meshtastic
+
+Utilisation :
+- Créer dashboards de batterie, état GPS, etc.

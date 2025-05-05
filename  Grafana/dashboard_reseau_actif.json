@@ -1,0 +1,79 @@
+{
+  "title": "\u00c9tat du R\u00e9seau Meshtastic",
+  "panels": [
+    {
+      "type": "table",
+      "title": "N\u0153uds actifs - Derni\u00e8re position re\u00e7ue",
+      "datasource": "InfluxDB Local",
+      "targets": [
+        {
+          "query": "SELECT last(\"latitude\") FROM \"positions\" WHERE $timeFilter GROUP BY \"tracker\"",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 12,
+        "h": 8
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Modules actifs (24h)",
+      "datasource": "InfluxDB Local",
+      "targets": [
+        {
+          "query": "SELECT count(distinct(\"tracker\")) FROM \"positions\" WHERE time > now() - 24h",
+          "refId": "B"
+        }
+      ],
+      "gridPos": {
+        "x": 12,
+        "y": 0,
+        "w": 12,
+        "h": 8
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Dernier module vu",
+      "datasource": "InfluxDB Local",
+      "targets": [
+        {
+          "query": "SELECT last(\"tracker\") FROM \"positions\"",
+          "refId": "C"
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 8,
+        "w": 12,
+        "h": 6
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Messages GPS re\u00e7us (1h)",
+      "datasource": "InfluxDB Local",
+      "targets": [
+        {
+          "query": "SELECT count(\"latitude\") FROM \"positions\" WHERE $timeFilter",
+          "refId": "D"
+        }
+      ],
+      "gridPos": {
+        "x": 12,
+        "y": 8,
+        "w": 12,
+        "h": 6
+      }
+    }
+  ],
+  "time": {
+    "from": "now-24h",
+    "to": "now"
+  },
+  "schemaVersion": 37,
+  "version": 1
+}

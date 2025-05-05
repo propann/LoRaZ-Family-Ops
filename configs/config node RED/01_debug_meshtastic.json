@@ -1,0 +1,36 @@
+[
+  {
+    "id": "a1",
+    "type": "mqtt in",
+    "z": "meshtastic_debug",
+    "name": "MQTT All Mesh",
+    "topic": "msh/EU_868/#",
+    "qos": "2",
+    "datatype": "auto",
+    "broker": "mqtt-broker-id",
+    "nl": false,
+    "rap": true,
+    "rh": 0,
+    "x": 160,
+    "y": 100,
+    "wires": [
+      [
+        "a2"
+      ]
+    ]
+  },
+  {
+    "id": "a2",
+    "type": "debug",
+    "z": "meshtastic_debug",
+    "name": "Tout le trafic",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "x": 400,
+    "y": 100,
+    "wires": []
+  }
+]

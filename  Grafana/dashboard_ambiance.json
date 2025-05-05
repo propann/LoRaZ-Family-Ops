@@ -1,0 +1,28 @@
+{
+  "title": "Ambiance (Temp/Hum)",
+  "panels": [
+    {
+      "type": "timeseries",
+      "title": "Temp\u00e9rature",
+      "datasource": "InfluxDB Local",
+      "targets": [
+        {
+          "query": "SELECT mean(\"temperature\") FROM \"sante_modules\" WHERE $timeFilter GROUP BY time($__interval), \"node\"",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 24,
+        "h": 8
+      }
+    }
+  ],
+  "time": {
+    "from": "now-7d",
+    "to": "now"
+  },
+  "schemaVersion": 37,
+  "version": 1
+}

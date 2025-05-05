@@ -1,0 +1,64 @@
+
+# 🧟 Arborescence du dépôt LauraZFamilyOops - Version Apocalypse Zombie
+
+Ce dépôt est la base arrière numérique d’un réseau familial résilient, conçu pour tenir bon même quand les ondes se taisent, que les réseaux tombent et que les voisins deviennent un peu trop... affamés.
+
+---
+
+## 📚 docs/
+
+Documentation stratégique à lire entre deux attaques de rôdeurs.
+
+- `docs/rapports/` — rapports de modules de terrain (humain, chien, base, véhicule…)
+- `docs/specs_modules/` — fiches techniques de chaque unité (antennes, batteries, buzzers…)
+- `docs/futurs_deploiements/` — scénarios pour escalader le chaos (Docker, Pi clusters, OTA par pigeon voyageur)
+
+---
+
+## 🧪 configs/
+
+Les rituels de configuration pour chaque élément du réseau.
+
+- `configs/meshtastic/` — canaux, PSK, noms de code des nœuds
+- `configs/nodered/` — flows automatisés de survie (géofencing, SOS, intrusion)
+- `configs/grafana/` — tableaux tactiques pour suivre les survivants et les menaces
+- `configs/mosquitto/` — les liaisons mentales MQTT
+- `configs/influxdb/` — entrepôt de données vitales (température, battements, panique)
+- `configs/atak_server/` — pour les opérations cartographiques tactiques avancées
+
+---
+
+## 🖥️ serveurs/
+
+Chaque bunker numérique de ton réseau a sa planque ici.
+
+- `serveurs/node_red/` — cerveau logique de l’alerte
+- `serveurs/grafana/` — salle de commandement graphique
+- `serveurs/mosquitto/` — communication sans voix
+- `serveurs/influxdb/` — mémoire des capteurs
+- `serveurs/meshtastic_gateway/` — passerelle vers la lumière (ou ce qu’il en reste)
+- `serveurs/suricata/` — sentinelle réseau, anti-intrus (vivants ou pas)
+- `serveurs/atak_server/` — cartographie pour planifier une évacuation ou un barbecue stratégique
+
+---
+
+## 🔧 hardware/
+
+Tout ce qui se branche, clignote ou vibre quand on s’en approche.
+
+- `hardware/schemas/` — les grimoires techniques (ESP, GPS, RFID, LoRa…)
+- `hardware/photos_modules/` — preuves visuelles de montages de fortune ou de génie
+
+---
+
+## ⚙️ scripts/
+
+Scripts pour lancer, maintenir ou réanimer le système.
+
+- `scripts/flash_firmware/` — préparation à l’envoi de cerveaux numériques dans les nœuds
+- `scripts/tools/` — pings, sauvegardes, tests vitaux
+
+---
+
+Cette structure est conçue pour résister au temps, à la pluie, à l’oubli… et à une apocalypse zombie de niveau 5. Clonez-la, améliorez-la, survivez.
+

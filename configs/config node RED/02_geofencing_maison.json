@@ -1,0 +1,55 @@
+[
+  {
+    "id": "43fb9a8c79ef51b4",
+    "type": "mqtt in",
+    "z": "meshtastic_geofence",
+    "name": "Meshtastic - GPS",
+    "topic": "msh/EU_868/telemetry/+/position",
+    "qos": "2",
+    "datatype": "json",
+    "broker": "mqtt-broker-id",
+    "nl": false,
+    "rap": true,
+    "rh": 0,
+    "x": 160,
+    "y": 80,
+    "wires": [
+      [
+        "b9a81a13a2f3d6f7"
+      ]
+    ]
+  },
+  {
+    "id": "b9a81a13a2f3d6f7",
+    "type": "function",
+    "z": "meshtastic_geofence",
+    "name": "D\u00e9tecte sortie zone",
+    "func": "// Coordonn\u00e9es de la maison\nconst maison = { lat: 45.819256775725066, lon: 4.920345150742005, rayon: 50 };\n\nfunction getDistance(lat1, lon1, lat2, lon2) {\n    const R = 6371e3;\n    const \u03c61 = lat1 * Math.PI / 180;\n    const \u03c62 = lat2 * Math.PI / 180;\n    const \u0394\u03c6 = (lat2 - lat1) * Math.PI / 180;\n    const \u0394\u03bb = (lon2 - lon1) * Math.PI / 180;\n\n    const a = Math.sin(\u0394\u03c6 / 2) ** 2 +\n              Math.cos(\u03c61) * Math.cos(\u03c62) *\n              Math.sin(\u0394\u03bb / 2) ** 2;\n    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));\n    return R * c;\n}\n\nconst lat = msg.payload.latitude;\nconst lon = msg.payload.longitude;\nconst distance = getDistance(maison.lat, maison.lon, lat, lon);\n\nif (distance > maison.rayon) {\n    node.status({fill:\"red\",shape:\"dot\",text:`Sorti: ${Math.round(distance)}m`});\n    msg.payload = {\n        to: \"all\",\n        message: `\u26a0\ufe0f Alerte : ${msg.topic.split(\"/\")[3]} est sorti de la zone ! (${Math.round(distance)} m)`\n    };\n    return [msg, null];\n} else {\n    node.status({fill:\"green\",shape:\"ring\",text:`OK: ${Math.round(distance)}m`});\n    return [null, msg];\n}",
+    "outputs": 2,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 410,
+    "y": 80,
+    "wires": [
+      [
+        "e45de96f0f134b68"
+      ],
+      []
+    ]
+  },
+  {
+    "id": "e45de96f0f134b68",
+    "type": "mqtt out",
+    "z": "meshtastic_geofence",
+    "name": "Alerte PERRITOS",
+    "topic": "msh/EU_868/cmd/send",
+    "qos": "",
+    "retain": "",
+    "broker": "mqtt-broker-id",
+    "x": 700,
+    "y": 80,
+    "wires": []
+  }
+]

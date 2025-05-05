@@ -1,0 +1,12 @@
+Flow 07 – OTA & Reboot
+----------------------------------
+Fonction :
+Deux boutons :
+- 🔁 Reboot → redémarre tous les modules
+- ⬇️ OTA Update → met tous les modules en mode mise à jour
+
+Réglages :
+- Envoie un message JSON sur msh/EU_868/cmd/send
+
+Astuce :
+- Nécessite que les modules soient proches pour OTA

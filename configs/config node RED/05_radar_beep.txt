@@ -1,0 +1,12 @@
+Flow 05 – Radar / Beep
+----------------------------------
+Fonction :
+Demande la position GPS d’un module. Si proche (moins de 50m), active le beep.
+
+Réglages :
+- Coordonnées de référence : maison
+- Rayon : 50 m
+- Remplacer !XXXXXXXX par le NodeID du module ciblé
+
+Astuce :
+- Peut être utilisé pour retrouver un chien ou sac à dos

@@ -1,0 +1,14 @@
+Config 02 – Module Mobile (Humain ou Sac)
+--------------------------------------------------
+Objectif :
+Ce module est mobile, porté par un humain. Il doit rester synchronisé avec la passerelle Maison.
+
+Réglages recommandés :
+- Connexion Wi-Fi : facultative
+- GPS actif avec intervalle défini selon le mode
+- Canal principal : FAMILIA
+- Nom de module : peut être fun (ex: “ZombieScout”, “CerveauXXL”, etc.)
+- Clé PSK identique à celle du module Maison
+
+Astuce :
+Peut être configuré avec un mode par défaut “Relax” ou “Scouting”

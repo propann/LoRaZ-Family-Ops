@@ -1,0 +1,87 @@
+[
+  {
+    "id": "b1b6f964f1f041b9",
+    "type": "mqtt in",
+    "z": "meshtastic_button_alert",
+    "name": "MQTT - Texte bouton",
+    "topic": "msh/EU_868/user/text",
+    "qos": "2",
+    "datatype": "auto",
+    "broker": "d1f5675b97eb21e5",
+    "nl": false,
+    "rap": true,
+    "rh": 0,
+    "x": 160,
+    "y": 100,
+    "wires": [
+      [
+        "9b84c3b1e586134e"
+      ]
+    ]
+  },
+  {
+    "id": "9b84c3b1e586134e",
+    "type": "switch",
+    "z": "meshtastic_button_alert",
+    "name": "Texte == URGENCE",
+    "property": "payload.text",
+    "propertyType": "msg",
+    "rules": [
+      {
+        "t": "eq",
+        "v": "URGENCE",
+        "vt": "str"
+      }
+    ],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 1,
+    "x": 410,
+    "y": 100,
+    "wires": [
+      [
+        "d4f0aaf18c81e2f9"
+      ]
+    ]
+  },
+  {
+    "id": "d4f0aaf18c81e2f9",
+    "type": "mqtt out",
+    "z": "meshtastic_button_alert",
+    "name": "D\u00e9clenche alerte",
+    "topic": "msh/EU_868/cmd/send",
+    "qos": "",
+    "retain": "",
+    "broker": "d1f5675b97eb21e5",
+    "x": 680,
+    "y": 100,
+    "wires": [],
+    "payload": "{\"to\":\"all\",\"message\":\"\ud83d\udea8 Alerte URGENCE d\u00e9clench\u00e9e manuellement !\"}",
+    "payloadType": "json"
+  },
+  {
+    "id": "d1f5675b97eb21e5",
+    "type": "mqtt-broker",
+    "name": "Mosquitto Local",
+    "broker": "192.168.1.54",
+    "port": "1883",
+    "clientid": "nodered-bouton-urgence",
+    "usetls": false,
+    "protocolVersion": "4",
+    "keepalive": "60",
+    "cleansession": true,
+    "birthTopic": "",
+    "birthQos": "0",
+    "birthPayload": "",
+    "closeTopic": "",
+    "closePayload": "",
+    "willTopic": "",
+    "willQos": "0",
+    "willPayload": "",
+    "userProps": "",
+    "credentials": {
+      "user": "meshtastic",
+      "password": "azoth"
+    }
+  }
+]

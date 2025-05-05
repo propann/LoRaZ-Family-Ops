@@ -1,0 +1,101 @@
+[
+  {
+    "id": "1",
+    "type": "ui_dropdown",
+    "z": "meshtastic_modes",
+    "name": "S\u00e9lecteur de mode",
+    "label": "Choisir le mode",
+    "tooltip": "",
+    "place": "S\u00e9lectionne...",
+    "group": "g1",
+    "order": 1,
+    "width": 6,
+    "height": 1,
+    "passthru": true,
+    "options": [
+      {
+        "label": "Relax",
+        "value": "relax",
+        "type": "str"
+      },
+      {
+        "label": "Urgence",
+        "value": "alert",
+        "type": "str"
+      },
+      {
+        "label": "Fiesta",
+        "value": "fiesta",
+        "type": "str"
+      },
+      {
+        "label": "Recherche",
+        "value": "scouting",
+        "type": "str"
+      },
+      {
+        "label": "Stealth",
+        "value": "stealth",
+        "type": "str"
+      },
+      {
+        "label": "Maintenance",
+        "value": "mainten",
+        "type": "str"
+      }
+    ],
+    "x": 160,
+    "y": 80,
+    "wires": [
+      [
+        "2"
+      ]
+    ]
+  },
+  {
+    "id": "2",
+    "type": "function",
+    "z": "meshtastic_modes",
+    "name": "Traduit en config",
+    "func": "const mode = msg.payload;\n\nlet config = {\n    \"to\": \"all\",\n    \"message\": \"\"\n};\n\nswitch (mode) {\n    case \"relax\":\n        config.message = \"[MODE] RELAX : GPS 300s, TX 17dBm\";\n        break;\n    case \"alert\":\n        config.message = \"[MODE] ALERTE : GPS 15s, TX 23dBm\";\n        break;\n    case \"fiesta\":\n        config.message = \"[MODE] FIESTA : TX 21dBm, sons/LED ON\";\n        break;\n    case \"scouting\":\n        config.message = \"[MODE] SCOUTING : GPS 30s, beep actif\";\n        break;\n    case \"stealth\":\n        config.message = \"[MODE] STEALTH : TX min, GPS OFF\";\n        break;\n    case \"mainten\":\n        config.message = \"[MODE] MAINTENANCE : TX max, debug ON\";\n        break;\n    default:\n        config.message = \"[MODE] Inconnu\";\n}\n\nmsg.payload = config;\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 410,
+    "y": 80,
+    "wires": [
+      [
+        "3"
+      ]
+    ]
+  },
+  {
+    "id": "3",
+    "type": "mqtt out",
+    "z": "meshtastic_modes",
+    "name": "Envoie MQTT mode",
+    "topic": "msh/EU_868/cmd/send",
+    "qos": "",
+    "retain": "",
+    "broker": "mqtt-broker-id",
+    "x": 680,
+    "y": 80,
+    "wires": []
+  },
+  {
+    "id": "g1",
+    "type": "ui_group",
+    "name": "Modes",
+    "tab": "t1",
+    "order": 1,
+    "disp": true,
+    "width": 6,
+    "collapse": false
+  },
+  {
+    "id": "t1",
+    "type": "ui_tab",
+    "name": "R\u00e9seau",
+    "icon": "dashboard",
+    "order": 1
+  }
+]

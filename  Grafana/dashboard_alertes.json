@@ -1,0 +1,28 @@
+{
+  "title": "Alertes & Urgences",
+  "panels": [
+    {
+      "type": "table",
+      "title": "Alertes critiques",
+      "datasource": "InfluxDB Local",
+      "targets": [
+        {
+          "query": "SELECT * FROM \"positions\" WHERE $timeFilter AND (\"altitude\" > 2000 OR \"battery\" < 20)",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 24,
+        "h": 10
+      }
+    }
+  ],
+  "time": {
+    "from": "now-48h",
+    "to": "now"
+  },
+  "schemaVersion": 37,
+  "version": 1
+}

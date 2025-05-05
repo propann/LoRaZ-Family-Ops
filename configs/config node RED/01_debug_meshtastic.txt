@@ -1,0 +1,10 @@
+Flow 01 – Debug Meshtastic
+----------------------------------
+Fonction :
+Affiche en temps réel tous les messages MQTT de Meshtastic (topic msh/EU_868/#).
+
+Utilisation :
+- Utile pour comprendre ce que publient les modules.
+- Sert au diagnostic LoRa/MQTT.
+
+Aucun réglage nécessaire.

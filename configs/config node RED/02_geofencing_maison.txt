@@ -1,0 +1,12 @@
+Flow 02 – Geofencing Maison
+----------------------------------
+Fonction :
+Surveille si un module sort de la zone autour de la maison (géofence 50 m).
+
+Réglages :
+- Coordonnées maison : 45.819256775725066, 4.920345150742005
+- Rayon : 50 mètres
+- Envoie un message MQTT d’alerte sur msh/EU_868/cmd/send si sortie.
+
+Personnalisable :
+- Modifier la position ou rayon dans le node Function.

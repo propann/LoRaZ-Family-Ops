@@ -1,0 +1,79 @@
+GUIDE UTILISATEUR – Réseau Familial Meshtastic
+======================================================
+
+Ce document explique comment utiliser le système Meshtastic installé dans la famille.
+Il est conçu pour être compris par tous, même sans connaissances techniques.
+
+📦 OBJECTIF
+-------------
+Permettre à tous les membres de la famille :
+- de communiquer sans Internet
+- de localiser un proche ou un animal
+- de recevoir des alertes en cas d'urgence ou sortie de zone
+- de déclencher un mode (nuit, fête, urgence...)
+- de consulter l’état du réseau (batterie, GPS, etc.)
+
+🧑‍💻 TABLEAU DE BORD
+----------------------
+Ouvrir sur une tablette ou PC :
+http://192.168.1.54:1880/ui
+
+Boutons disponibles :
+- 🐶 Où est Rex ? → demande la position du chien
+- 🚨 Déclencher alerte → envoie une alerte à tout le réseau
+- 🎉 Mode Fiesta → active le mode festif sur tous les modules
+- Sélection de mode : Relax, Urgence, Recherche, Stealth, etc.
+- Affichage de la batterie, GPS et température
+
+📍 POSITION ET GEOFENCE
+-------------------------
+- Chaque module avec GPS envoie sa position.
+- Une alerte est déclenchée si quelqu’un sort de la zone “Maison”.
+- La zone est définie dans Node-RED (rayon de 50 mètres).
+
+📡 RADAR / RECHERCHE
+----------------------
+- Le bouton “Radar” (Flow 5) permet de déclencher un beep sur un module si proche (< 50m)
+- Très utile pour retrouver un sac ou un animal
+
+📈 GRAFANA – Données historiques
+----------------------------------
+Ouvrir :
+http://192.168.1.54:3000 (login requis)
+
+Dashboards disponibles :
+1. Carte GPS en temps réel
+2. Courbes de batterie / température
+3. Alertes passées
+
+🛠️ MODES AUTOMATIQUES
+------------------------
+- Le système passe en mode Relax à 22h
+- Et en mode Scouting à 7h
+
+🔧 MISE À JOUR / ENTRETIEN
+----------------------------
+- Un bouton permet de redémarrer ou mettre à jour les modules à distance (OTA)
+- Utiliser l’onglet “Maintenance”
+
+📲 ENVOYER UN MESSAGE
+-----------------------
+- Depuis un module Meshtastic : écrire un message texte
+- Les autres modules le reçoivent immédiatement si sur le même canal
+
+🛑 EN CAS D'URGENCE
+---------------------
+- Appuyer sur un bouton configuré sur un module pour envoyer le message "URGENCE"
+- Cela déclenche une alerte sonore ou visuelle sur tout le réseau
+
+💡 CONSEILS
+--------------
+- Laisser les modules chargés ou connectés à une batterie externe
+- Le réseau fonctionne même sans Internet
+- Garder au moins un module en mode passerelle branché au Pi à la maison
+
+—
+
+Ce système est sécurisé, autonome et amusant.
+Prévu pour résister à l'apocalypse zombie… ou aux coupures d’Internet 🧟‍♂️
+

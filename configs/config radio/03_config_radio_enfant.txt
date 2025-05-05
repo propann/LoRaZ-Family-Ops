@@ -1,0 +1,15 @@
+Config 03 – Module Enfant
+--------------------------------------------------
+Objectif :
+Traceur ou badge pour un enfant. Doit permettre le suivi et une alerte rapide.
+
+Réglages :
+- Nom du module : "MiniZombie" ou prénom
+- GPS actif toutes les 60-120s
+- Canal actif : FAMILIA
+- Mode par défaut : Relax ou Scouting
+- Activation possible bouton urgence (texte "URGENCE")
+- Buzzer désactivé (ou configuré selon besoin)
+
+Astuce :
+Configurer le bouton pour envoi de texte court "URGENCE" ou "LOST"

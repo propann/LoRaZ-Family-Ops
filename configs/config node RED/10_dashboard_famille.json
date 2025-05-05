@@ -1,0 +1,110 @@
+[
+  {
+    "id": "1",
+    "type": "ui_button",
+    "z": "meshtastic_family_ui",
+    "name": "O\u00f9 est Rex ?",
+    "group": "g1",
+    "order": 1,
+    "width": 6,
+    "height": 1,
+    "passthru": false,
+    "label": "\ud83d\udc36 O\u00f9 est Rex ?",
+    "tooltip": "Demande la position du chien",
+    "color": "",
+    "bgcolor": "",
+    "icon": "",
+    "payload": "{\"request_position\": true}",
+    "payloadType": "json",
+    "topic": "msh/EU_868/cmd/to/!XXXXXXXX",
+    "x": 160,
+    "y": 80,
+    "wires": [
+      [
+        "4"
+      ]
+    ]
+  },
+  {
+    "id": "2",
+    "type": "ui_button",
+    "z": "meshtastic_family_ui",
+    "name": "Alarme g\u00e9n\u00e9rale",
+    "group": "g1",
+    "order": 2,
+    "width": 6,
+    "height": 1,
+    "passthru": false,
+    "label": "\ud83d\udea8 D\u00e9clencher Alerte",
+    "tooltip": "Envoie alerte sur le r\u00e9seau",
+    "color": "white",
+    "bgcolor": "red",
+    "icon": "",
+    "payload": "{\"to\":\"all\",\"message\":\"\ud83d\udea8 URGENCE ! Appel de d\u00e9tresse depuis la maison\"}",
+    "payloadType": "json",
+    "topic": "msh/EU_868/cmd/send",
+    "x": 180,
+    "y": 140,
+    "wires": [
+      [
+        "4"
+      ]
+    ]
+  },
+  {
+    "id": "3",
+    "type": "ui_button",
+    "z": "meshtastic_family_ui",
+    "name": "Mode Fiesta",
+    "group": "g1",
+    "order": 3,
+    "width": 6,
+    "height": 1,
+    "passthru": false,
+    "label": "\ud83c\udf89 Activer Fiesta",
+    "tooltip": "Passe tous les modules en mode Fiesta",
+    "color": "",
+    "bgcolor": "",
+    "icon": "",
+    "payload": "{\"to\":\"all\",\"message\":\"[MODE] FIESTA ! Musique et LED ON\"}",
+    "payloadType": "json",
+    "topic": "msh/EU_868/cmd/send",
+    "x": 160,
+    "y": 200,
+    "wires": [
+      [
+        "4"
+      ]
+    ]
+  },
+  {
+    "id": "4",
+    "type": "mqtt out",
+    "z": "meshtastic_family_ui",
+    "name": "MQTT out",
+    "topic": "",
+    "qos": "",
+    "retain": "",
+    "broker": "mqtt-broker-id",
+    "x": 480,
+    "y": 140,
+    "wires": []
+  },
+  {
+    "id": "g1",
+    "type": "ui_group",
+    "name": "Contr\u00f4le Maison",
+    "tab": "t1",
+    "order": 1,
+    "disp": true,
+    "width": 6,
+    "collapse": false
+  },
+  {
+    "id": "t1",
+    "type": "ui_tab",
+    "name": "Maison",
+    "icon": "home",
+    "order": 1
+  }
+]

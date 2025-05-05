@@ -1,0 +1,67 @@
+[
+  {
+    "id": "1",
+    "type": "mqtt in",
+    "z": "meshtastic_health",
+    "name": "Telemetry sant\u00e9",
+    "topic": "msh/EU_868/telemetry/+/nodeInfo",
+    "qos": "2",
+    "datatype": "json",
+    "broker": "mqtt-broker-id",
+    "nl": false,
+    "rap": true,
+    "rh": 0,
+    "x": 160,
+    "y": 100,
+    "wires": [
+      [
+        "2"
+      ]
+    ]
+  },
+  {
+    "id": "2",
+    "type": "function",
+    "z": "meshtastic_health",
+    "name": "Format InfluxDB",
+    "func": "const nodeId = msg.topic.split(\"/\")[3];\nconst info = msg.payload.user;\nconst metrics = msg.payload.deviceMetrics || {};\nconst batt = metrics.batteryLevel || 0;\nconst temp = metrics.airTemperature || 0;\nconst sats = metrics.satelliteCount || 0;\n\nmsg.payload = {\n    measurement: \"sante_modules\",\n    tags: { node: nodeId, short: info.shortName || \"?\" },\n    fields: {\n        batterie: batt,\n        temperature: temp,\n        satellites: sats\n    },\n    timestamp: Date.now()\n};\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 410,
+    "y": 100,
+    "wires": [
+      [
+        "3"
+      ]
+    ]
+  },
+  {
+    "id": "3",
+    "type": "influxdb out",
+    "z": "meshtastic_health",
+    "influxdb": "influxdb-local",
+    "name": "Vers InfluxDB",
+    "measurement": "",
+    "precision": "",
+    "retentionPolicy": "",
+    "database": "meshtastic",
+    "precisionV18FluxV20": "ms",
+    "retentionPolicyV18Flux": "",
+    "org": "",
+    "bucket": "",
+    "x": 690,
+    "y": 100,
+    "wires": []
+  },
+  {
+    "id": "influxdb-local",
+    "type": "influxdb",
+    "hostname": "localhost",
+    "port": "8086",
+    "protocol": "http",
+    "database": "meshtastic",
+    "name": "InfluxDB Local",
+    "usetls": false,
+    "tls": ""
+  }
+]

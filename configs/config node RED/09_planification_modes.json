@@ -1,0 +1,57 @@
+[
+  {
+    "id": "1",
+    "type": "inject",
+    "z": "meshtastic_schedule",
+    "name": "Mode Nuit (22h)",
+    "props": [],
+    "repeat": "",
+    "crontab": "00 22 * * *",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "{\"to\":\"all\",\"message\":\"[MODE AUTO] Passage en mode RELAX (nuit)\"}",
+    "payloadType": "json",
+    "x": 160,
+    "y": 100,
+    "wires": [
+      [
+        "3"
+      ]
+    ]
+  },
+  {
+    "id": "2",
+    "type": "inject",
+    "z": "meshtastic_schedule",
+    "name": "Mode Jour (07h)",
+    "props": [],
+    "repeat": "",
+    "crontab": "00 07 * * *",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "{\"to\":\"all\",\"message\":\"[MODE AUTO] Passage en mode SCOUTING (jour)\"}",
+    "payloadType": "json",
+    "x": 160,
+    "y": 160,
+    "wires": [
+      [
+        "3"
+      ]
+    ]
+  },
+  {
+    "id": "3",
+    "type": "mqtt out",
+    "z": "meshtastic_schedule",
+    "name": "MQTT Mode auto",
+    "topic": "msh/EU_868/cmd/send",
+    "qos": "",
+    "retain": "",
+    "broker": "mqtt-broker-id",
+    "x": 440,
+    "y": 130,
+    "wires": []
+  }
+]

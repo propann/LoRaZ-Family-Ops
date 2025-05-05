@@ -1,0 +1,12 @@
+Flow 04 – Alerte bouton
+----------------------------------
+Fonction :
+Si un message texte "URGENCE" est reçu, déclenche une alerte réseau.
+
+Réglages :
+- Écoute msh/EU_868/user/text
+- Vérifie si le message reçu est exactement "URGENCE"
+- Envoie un message d’alerte globale
+
+Utilisation :
+- Utiliser un bouton sur un module pour envoyer "URGENCE"

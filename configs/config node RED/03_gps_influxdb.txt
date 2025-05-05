@@ -1,0 +1,12 @@
+Flow 03 – GPS → InfluxDB
+----------------------------------
+Fonction :
+Stocke les positions GPS reçues dans InfluxDB pour affichage dans Grafana.
+
+Réglages :
+- Base InfluxDB : meshtastic
+- Champs : latitude, longitude, altitude, battery
+- Tag : node ID (tracker)
+
+Nécessite :
+- InfluxDB configuré sur localhost:8086

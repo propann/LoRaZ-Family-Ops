@@ -1,0 +1,13 @@
+Flow 10 – Dashboard famille
+----------------------------------
+Fonction :
+3 boutons simples pour la famille :
+- 🐶 Où est Rex ? (demande position au chien)
+- 🚨 Alerte manuelle
+- 🎉 Activer mode Fiesta
+
+Réglages :
+- Remplacer !XXXXXXXX par le NodeID du chien
+
+But :
+- Interface simple et safe pour non-tech.

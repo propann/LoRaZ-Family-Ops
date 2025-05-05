@@ -1,0 +1,84 @@
+[
+  {
+    "id": "1",
+    "type": "ui_button",
+    "z": "meshtastic_ota",
+    "name": "Reboot",
+    "group": "g1",
+    "order": 1,
+    "width": 3,
+    "height": 1,
+    "passthru": false,
+    "label": "\ud83d\udd01 Reboot",
+    "tooltip": "Red\u00e9marrer tous les modules",
+    "color": "",
+    "bgcolor": "",
+    "icon": "",
+    "payload": "{\"reboot\": true}",
+    "payloadType": "json",
+    "topic": "msh/EU_868/cmd/send",
+    "x": 160,
+    "y": 80,
+    "wires": [
+      [
+        "3"
+      ]
+    ]
+  },
+  {
+    "id": "2",
+    "type": "ui_button",
+    "z": "meshtastic_ota",
+    "name": "OTA",
+    "group": "g1",
+    "order": 2,
+    "width": 3,
+    "height": 1,
+    "passthru": false,
+    "label": "\u2b07\ufe0f OTA Update",
+    "tooltip": "Passer en mode OTA",
+    "color": "",
+    "bgcolor": "",
+    "icon": "",
+    "payload": "{\"reboot_ota\": true}",
+    "payloadType": "json",
+    "topic": "msh/EU_868/cmd/send",
+    "x": 160,
+    "y": 140,
+    "wires": [
+      [
+        "3"
+      ]
+    ]
+  },
+  {
+    "id": "3",
+    "type": "mqtt out",
+    "z": "meshtastic_ota",
+    "name": "Commande MQTT",
+    "topic": "",
+    "qos": "",
+    "retain": "",
+    "broker": "mqtt-broker-id",
+    "x": 440,
+    "y": 110,
+    "wires": []
+  },
+  {
+    "id": "g1",
+    "type": "ui_group",
+    "name": "Maintenance",
+    "tab": "t1",
+    "order": 1,
+    "disp": true,
+    "width": 6,
+    "collapse": false
+  },
+  {
+    "id": "t1",
+    "type": "ui_tab",
+    "name": "R\u00e9seau",
+    "icon": "wrench",
+    "order": 2
+  }
+]

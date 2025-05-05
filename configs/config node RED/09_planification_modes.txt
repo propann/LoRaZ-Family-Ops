@@ -1,0 +1,11 @@
+Flow 09 – Planification automatique
+----------------------------------
+Fonction :
+Change automatiquement le mode en fonction de l’heure.
+
+Réglages :
+- 7h : mode SCOUTING (jour)
+- 22h : mode RELAX (nuit)
+
+Astuce :
+- Créer d’autres injections pour personnaliser plus finement.

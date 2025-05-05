@@ -1,0 +1,15 @@
+Config 04 – Module Chien
+--------------------------------------------------
+Objectif :
+Traceur pour chien avec fonction radar/beep.
+
+Réglages :
+- Nom du module : "Rex", "Crocs", ou "WoufZ"
+- GPS actif (15 à 60s)
+- Canal actif : FAMILIA
+- Clé PSK : identique au réseau
+- Buzzer actif pour recherche
+- Pas besoin de bouton utilisateur
+
+Astuce :
+Utiliser avec le Flow 5 pour déclencher radar/beep.

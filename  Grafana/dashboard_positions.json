@@ -1,0 +1,37 @@
+{
+  "title": "Carte GPS \u2013 Meshtastic",
+  "panels": [
+    {
+      "type": "geomap",
+      "title": "Position des modules",
+      "datasource": "InfluxDB Local",
+      "targets": [
+        {
+          "query": "SELECT last(\"latitude\") AS lat, last(\"longitude\") AS lon FROM \"positions\" WHERE $timeFilter GROUP BY \"tracker\"",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "custom": {
+            "latField": "lat",
+            "lonField": "lon"
+          }
+        }
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 24,
+        "h": 12
+      }
+    }
+  ],
+  "time": {
+    "from": "now-24h",
+    "to": "now"
+  },
+  "schemaVersion": 37,
+  "version": 1
+}

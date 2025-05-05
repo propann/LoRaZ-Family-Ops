@@ -1,0 +1,12 @@
+Flow 06 – Bascule de modes
+----------------------------------
+Fonction :
+Interface avec menu déroulant pour passer tous les modules en mode :
+Relax, Urgence, Fiesta, Recherche, Stealth, Maintenance.
+
+Réglages :
+- Envoie un message lisible aux modules
+- Ne change pas automatiquement la config radio (sauf si scripté)
+
+Astuce :
+- Combinable avec des flows de config avancée.

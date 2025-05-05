@@ -1,0 +1,62 @@
+{
+  "title": "Sant\u00e9 des modules",
+  "panels": [
+    {
+      "type": "timeseries",
+      "title": "Niveau de Batterie",
+      "datasource": "InfluxDB Local",
+      "targets": [
+        {
+          "query": "SELECT mean(\"batterie\") FROM \"sante_modules\" WHERE $timeFilter GROUP BY time($__interval), \"node\"",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 24,
+        "h": 8
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "Temp\u00e9rature",
+      "datasource": "InfluxDB Local",
+      "targets": [
+        {
+          "query": "SELECT mean(\"temperature\") FROM \"sante_modules\" WHERE $timeFilter GROUP BY time($__interval), \"node\"",
+          "refId": "B"
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 8,
+        "w": 24,
+        "h": 8
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "Satellites visibles",
+      "datasource": "InfluxDB Local",
+      "targets": [
+        {
+          "query": "SELECT mean(\"satellites\") FROM \"sante_modules\" WHERE $timeFilter GROUP BY time($__interval), \"node\"",
+          "refId": "C"
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 16,
+        "w": 24,
+        "h": 8
+      }
+    }
+  ],
+  "time": {
+    "from": "now-24h",
+    "to": "now"
+  },
+  "schemaVersion": 37,
+  "version": 1
+}

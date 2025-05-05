@@ -1,0 +1,95 @@
+[
+  {
+    "id": "101ba3f314defb02",
+    "type": "mqtt in",
+    "z": "meshtastic_influx",
+    "name": "MQTT - GPS",
+    "topic": "msh/EU_868/telemetry/+/position",
+    "qos": "2",
+    "datatype": "json",
+    "broker": "d1f5675b97eb21e5",
+    "nl": false,
+    "rap": true,
+    "rh": 0,
+    "x": 160,
+    "y": 100,
+    "wires": [
+      [
+        "2a7342f408fd3315"
+      ]
+    ]
+  },
+  {
+    "id": "2a7342f408fd3315",
+    "type": "function",
+    "z": "meshtastic_influx",
+    "name": "Format InfluxDB",
+    "func": "// Exemple topic: msh/EU_868/telemetry/!7df439c3/position\nconst topicParts = msg.topic.split(\"/\");\nconst nodeId = topicParts[3];\n\nconst lat = msg.payload.latitude;\nconst lon = msg.payload.longitude;\nconst alt = msg.payload.altitude || 0;\nconst batt = msg.payload.batteryLevel || 0;\n\nmsg.payload = {\n    measurement: \"positions\",\n    tags: {\n        tracker: nodeId\n    },\n    fields: {\n        latitude: lat,\n        longitude: lon,\n        altitude: alt,\n        battery: batt\n    },\n    timestamp: Date.now()\n};\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 420,
+    "y": 100,
+    "wires": [
+      [
+        "b4b1988783d5dc87"
+      ]
+    ]
+  },
+  {
+    "id": "b4b1988783d5dc87",
+    "type": "influxdb out",
+    "z": "meshtastic_influx",
+    "influxdb": "f0a74eecdbdc524f",
+    "name": "InfluxDB - positions",
+    "measurement": "",
+    "precision": "",
+    "retentionPolicy": "",
+    "database": "meshtastic",
+    "precisionV18FluxV20": "ms",
+    "retentionPolicyV18Flux": "",
+    "org": "",
+    "bucket": "",
+    "x": 690,
+    "y": 100,
+    "wires": []
+  },
+  {
+    "id": "d1f5675b97eb21e5",
+    "type": "mqtt-broker",
+    "name": "Mosquitto Local",
+    "broker": "192.168.1.54",
+    "port": "1883",
+    "clientid": "nodered-gps-influx",
+    "usetls": false,
+    "protocolVersion": "4",
+    "keepalive": "60",
+    "cleansession": true,
+    "birthTopic": "",
+    "birthQos": "0",
+    "birthPayload": "",
+    "closeTopic": "",
+    "closePayload": "",
+    "willTopic": "",
+    "willQos": "0",
+    "willPayload": "",
+    "userProps": "",
+    "credentials": {
+      "user": "meshtastic",
+      "password": "azoth"
+    }
+  },
+  {
+    "id": "f0a74eecdbdc524f",
+    "type": "influxdb",
+    "hostname": "localhost",
+    "port": "8086",
+    "protocol": "http",
+    "database": "meshtastic",
+    "name": "InfluxDB Local",
+    "usetls": false,
+    "tls": ""
+  }
+]
