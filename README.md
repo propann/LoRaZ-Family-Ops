@@ -1,84 +1,93 @@
-# ☣️ Réseau Familial Meshtastic - Mode Survie Totale ☣️
+🧟‍♂️ LoRaZ-Family-Ops
 
-*“Dans un monde où les réseaux tombent... la famille reste connectée.”*
+> "Quand l'apocalypse frappera, que restera-t-il ? Un réseau LoRa qui fonctionne."
 
-Bienvenue dans le dépôt de résistance du **Réseau Familial Meshtastic** — l’ultime bastion de communication LoRa en cas de panne générale, blackout technologique ou invasion de morts-vivants.
+## 📡 Objectif
 
----
+Créer un réseau LoRa + GPS autonome et résilient, capable d'assurer la communication et le suivi en toutes circonstances (y compris les invasions zombies), pour protéger votre famille et vos compagnons à poils.
 
-## 🎯 Mission
+## 🧱 Architecture
 
-Construire un réseau **LoRa privé et autonome**, capable de :
+- **Traceurs humains** : T-Beam Supreme (ESP32 + LoRa SX1262)
+- **Traceurs animaux** : TinyLoRa E5 + collier étanche
+- **Passerelles LoRa → MQTT** : Raspberry Pi 3B+ / Zero W (Dockerized)
+- **Serveur central** : Raspberry Pi 5 (8 Go RAM, NVMe 500 Go)
+- **Stockage** : NAS Synology (RAID 5, snapshots)
+- **Énergie** : panneaux solaires + batteries LiFePO₄ (> 72h autonomie)
 
-- Fonctionner sans internet
-- Suivre les membres de la famille en temps réel (humains ou canins)
-- Survivre à une éruption solaire, un EMP, ou un coup de pelle mal placé
-- Résister à l’hiver nucléaire, au retour de Skynet ou à une coupure de la Livebox
+## 🔐 Canaux & PSK (Pré-partagés)
 
----
+| Index | Canal       | Fonction                          |
+|-------|-------------|-----------------------------------|
+| 0     | FAMILIA     | Communications générales familiales |
+| 1     | SOS         | Urgences 24/7                     |
+| 2     | POSITION    | GPS temps réel et historique     |
+| 3     | VOIX        | Push-to-Talk audio LoRa          |
+| 4     | REPÈRES_AR  | Points d’intérêt en AR           |
+| 5     | RÉSERVE     | Canal libre                      |
+| 6     | MÉTÉO       | Données IoT & météo              |
+| 7     | MAJ_OTA     | Maintenance & mise à jour OTA    |
+| 8     | ZOMBIE      | Mode apocalypse/test invasion     |
 
-## 🧱 Modules d’élite
+> Tous les canaux sont chiffrés avec un PSK (voir `/scripts/generate-channels.sh`).
 
-### 🧔 Explorateur (a.k.a. Module Humain)
+## 🚀 Installation rapide
 
-- Inspiré par **Mad Max** et **The Last of Us**
-- Équipé d’un T-Beam, GPS, encodeur rotatif, bouton PTT et LEDs
-- Capable d’émettre des signaux de détresse, de se géolocaliser, et de converser avec le QG
-- Prêt à hurler "On a un visuel sur un infecté niveau 3" à n’importe quel moment
+```bash
+# Clone le dépôt du dernier espoir
+git clone https://github.com/propann/LoRaZ-Family-Ops.git
+cd LoRaZ-Family-Ops
 
----
+# Lance la config des passerelles
+bash scripts/setup-mosquitto.sh
 
-### 🐕 Traceur Canin (Module Chien - Project DOGTAG)
+# Déploie les flows Node-RED
+cp -r flows/node-red/* ~/.node-red/flows/
 
-- Collier LoRa avec GPS + lecteur RFID
-- Inspiré par le fidèle **Dogmeat** de Fallout
-- Détecte si la puce du chien est retirée (ou si quelqu’un a essayé de voler le chien pour le barbecue)
-- Active un **radar-beep de recherche** si l’animal dépasse le périmètre
+# Flash OTA les traceurs de la résistance
+bash scripts/ota-update.sh
+```
 
----
+## 📊 Visualisation & monitoring
 
-### 👶 Mini-Resistant (Module Enfant - SAFE-KID)
+- **Node-RED** : alertes géofence, scénario zombie, localisation.
+- **Grafana** : dashboards GPS, RSSI, batterie, fréquence cardiaque.
+- **InfluxDB** : stockage historique des données (position, capteurs).
 
-- LilyGo E-Ink minimaliste avec gros boutons clairs
-- Affiche des pictos : maison, smiley, danger, cookie
-- Inspiré des **bracelets de survie pour enfants** qu'on verrait dans **The Walking Dead**
-- Envoie un signal SOS s’il se perd dans le jardin… ou dans les bois hantés
+## 🛠️ Dossiers
 
----
+```
+LoRaZ-Family-Ops/
+├── scripts/        # Install, OTA, MQTT, CLI Meshtastic
+├── flows/          # Flows Node-RED (.json)
+├── dashboards/     # Dashboards Grafana exportés
+├── configs/        # Config Mosquitto, Meshtastic Gateway
+├── docs/           # Guides, notices de survie
+└── README.md       # Ce fichier, votre bible post-apocalypse
+```
 
-### 🚗 Sentinelle Mobile (Module Véhicule - ROADRAGE-X)
+## 📚 Liens utiles
 
-- Panneau solaire discret + module GPS LoRa caché
-- Enregistre le son ambiant pour vérifier si quelqu’un crie "BRAAAAINS"
-- Sert de relais mobile pour les survivants en mouvement
-- Peut alerter si le véhicule quitte un périmètre sécurisé type "zone verte"
+- 📖 https://meshtastic.org/docs/software/cli/
+- 📡 https://meshtastic.org/docs/settings/
+- 🌩 https://nodered.org/docs/
+- 📈 https://grafana.com/docs/grafana/latest/
+- ☁️ https://docs.influxdata.com/influxdb/v2.7/
+- 🧱 https://mosquitto.org/documentation/
+- 🧠 https://docs.suricata.io/
 
----
+## 🧟 Règle d’édition (v2.0)
 
-## 🗂 Structure de l’Arche
+```python
+# Si ce script plante, c’est sûrement qu’un rôdeur l’a corrompu.
+# Pour activer le beacon de détresse : priez, puis appuyez ici.
+```
 
-- `docs/rapports` → Stratégiques, confidentiels, souvent tachés de café
-- `docs/specs_modules` → Dossiers secrets de chaque unité techno
-- `configs/meshtastic` → Protocoles de communication par rôle
-- `scripts/flash_firmware` → Armes numériques prêtes à flasher
-- `hardware/` → Schémas, photos, morceaux de PCB fondus
-- `dashboards/grafana` → Cartes de contrôle comme dans **Resident Evil**
-- `ota_updates/` → Recharges OTA en cas de coupure ou corruption firmware
+## 🤝 Contributions bienvenues !
 
----
+1. Forkez.
+2. Créez une branche (`feature/anti-zombie-mode`).
+3. Poussez votre chaos organisé.
+4. Ouvrez une PR avant que les morts ne marchent à nouveau.
 
-## 🧰 Arsenal Tech
-
-- Raspberry Pi (toutes générations de survivants confondues)
-- ESP32 (T-Beam, T-Echo, TinyLoRa... tous formés à l’école de guerre)
-- Docker, MQTT, Node-RED, InfluxDB, Grafana, et pas mal de scotch
-- GPS, RFID, capteurs météo, buzzers, encodeurs, LEDs RGB : l’équipement de **Ghost Recon**
-
----
-
-## 🔥 Résumé
-
-Ce projet c’est un peu **Zombieland + Stranger Things + Fallout** mais avec des Raspberry Pis, des chiens et une carte LoRa.
-
-Si t’as une pelle dans une main et une T-Beam dans l’autre, t’es au bon endroit.
-
+🧟‍♀️ *Ce dépôt est votre dernier rempart contre le silence numérique. Protégez-le comme s’il contenait votre ration de cerveaux.*
