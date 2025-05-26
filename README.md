@@ -1,85 +1,83 @@
-# 🧟‍♂️ LoRaZ-Family-Ops
+# 🛰️ LoRaZ-Family-Ops v2.1 — Réseau Post-Apocalyptique Familial
 
-> "Quand l'apocalypse frappera, que restera-t-il ? Un réseau LoRa qui fonctionne."
+> *"Quand Internet tombe, la tribu parle encore."*
 
-## 📡 Objectif
+## 📦 Présentation du projet
 
-Créer un réseau LoRa + GPS autonome et résilient, capable d'assurer la communication et le suivi en toutes circonstances (y compris les invasions zombies), pour protéger votre famille et vos compagnons à poils.
+**LoRaZ-Family-Ops** est un réseau de communication **autonome, chiffré et résilient** conçu pour fonctionner même en cas de coupure Internet, d'apocalypse zombie ou de rave dans les bois. Il connecte humains, animaux et capteurs via LoRa + GPS + MQTT, sur Raspberry Pi et modules ESP32/LoRa.
+
+## 🎯 Objectifs
+
+* Maintenir le lien familial sans réseau cellulaire
+* Suivre les membres et animaux en temps réel
+* Alerter et réagir en situation critique
+* Tester des scénarios de crise (mode Zombie, ATAK)
+* Collecter des données météo / capteurs / AR
 
 ## 🧱 Architecture
 
-- **Traceurs humains** : T-Beam Supreme (ESP32 + LoRa SX1262)
-- **Traceurs animaux** : TinyLoRa E5 + collier étanche
-- **Passerelles LoRa → MQTT** : Raspberry Pi 3B+ / Zero W (Dockerized)
-- **Serveur central** : Raspberry Pi 5 (8 Go RAM, NVMe 500 Go)
-- **Stockage** : NAS Synology (RAID 5, snapshots)
-- **Énergie** : panneaux solaires + batteries LiFePO₄ (> 72h autonomie)
+| Élément         | Matériel                               | Fonction principale                |
+| --------------- | -------------------------------------- | ---------------------------------- |
+| Traceur humain  | T-Beam Supreme                         | GPS, messages, PTT, BLE santé      |
+| Traceur animal  | TinyLoRa + collier étanche             | Position, RSSI, géofence           |
+| Station maison  | Pi 5 + module LoRa                     | Passerelle MQTT, serveur principal |
+| Stations relais | Pi Zero / ESP32                        | Relais LoRa, nodes outdoor         |
+| Backend         | Mosquitto, Node-RED, InfluxDB, Grafana | Traitement, alertes, dashboards    |
 
-## 🔐 Canaux & PSK (version 2.0 – max 8)
+## 🔐 Canaux actifs (v2.1)
 
-| Index | Canal       | Fonction                          |
-|-------|-------------|-----------------------------------|
-| 0     | FAMILIA     | Communications familiales         |
-| 1     | SOS         | Urgences 24/7                     |
-| 2     | POSITION    | GPS temps réel et historique      |
-| 3     | VOIX        | Push-to-Talk audio LoRa           |
-| 4     | REPÈRES_AR  | Points d’intérêt en AR            |
-| 5     | MÉTÉO       | Données météo & capteurs IoT      |
-| 6     | MAJ_OTA     | Maintenance & OTA                 |
-| 7     | ZOMBIE      | Test invasion, blagues & chaos     |
+| Index | Nom canal | Usage                             |
+| ----- | --------- | --------------------------------- |
+| 0     | CLAN      | Messages familiaux (texte, image) |
+| 1     | REDLINE   | SOS + GPS urgence                 |
+| 2     | ECHO      | Push-To-Talk (audio LoRa)         |
+| 3     | BUNKER    | Capteurs météo, AR, BLE           |
+| 4     | ZZOMBI    | Test invasion, alertes ludiques   |
+| 5     | ATTAK     | Liaison ATAK Server               |
+| 6     | MAJ\_OTA  | Mises à jour OTA & maintenance    |
+| 7     | RESERVEE  | Slot libre                        |
 
-> ⚠️ Meshtastic limite à 8 canaux par appareil. Le canal de trop devient un cri dans le vide.
+## ⚙️ Modes radio
 
-## 🚀 Installation rapide
+| Mode      | Intervalle GPS | Puissance TX | Description                 |
+| --------- | -------------- | ------------ | --------------------------- |
+| Relax     | 300 s          | 17 dBm       | Éco batterie, usage normal  |
+| Alert     | 15 s           | 23 dBm       | Urgence, recherche, SOS     |
+| Recherche | 5 s            | 23 dBm       | Géolocalisation fine, radar |
+| Party     | 120 s          | 18 dBm       | Fête, débit plus élevé      |
+| Stealth   | 900 s          | 5 dBm        | Ultra discret               |
 
-```bash
-git clone https://github.com/propann/LoRaZ-Family-Ops.git
-cd LoRaZ-Family-Ops
-bash scripts/setup-mosquitto.sh
-cp -r flows/node-red/* ~/.node-red/flows/
-bash scripts/ota-update.sh
-```
+## 📊 Dashboards
 
-## 📊 Visualisation & monitoring
+* **Grafana** → Suivi GPS, capteurs, batterie
+* **Node-RED** → Alertes geofencing, logique de modes, mode Zombie
 
-- **Node-RED** : alertes geofence, mode recherche, scénario zombie
-- **Grafana** : dashboards GPS, RSSI, batterie, BPM
-- **InfluxDB** : stockage long terme, santé et position
+## 🧪 En test / Dev
 
-## 📁 Organisation du dépôt
+* Affichage POI AR sur Android (API + Node-RED)
+* Monitoring santé (BLE → température, HRM)
+* RFID collier + activation GPS
+* Mode chiffré ATAK ↔ Meshtastic
 
-```
-LoRaZ-Family-Ops/
-├── scripts/
-├── flows/
-├── dashboards/
-├── configs/
-├── docs/
-└── README.md
-```
+## 🧟 Règle post-apo
 
-## 📚 Liens utiles
-
-- 📖 [Meshtastic CLI](https://meshtastic.org/docs/software/cli/)
-- 📡 [Réglages radio](https://meshtastic.org/docs/settings/)
-- 🌩 [Node-RED](https://nodered.org/docs/)
-- 📈 [Grafana](https://grafana.com/docs/grafana/latest/)
-- ☁️ [InfluxDB v2](https://docs.influxdata.com/influxdb/v2.7/)
-- 🧱 [Mosquitto MQTT](https://mosquitto.org/documentation/)
-- 🧠 [Suricata IDS](https://docs.suricata.io/)
-
-## 🧟 Règle d’édition
+Tout script/document contient au moins une ligne du style :
 
 ```bash
-# Si ce script plante, c’est sûrement qu’un rôdeur l’a corrompu.
-# Pour activer le beacon de détresse : priez, puis appuyez ici.
+# Si ce script plante, considérez qu’un zombie l’a saboté.
 ```
 
-## 🤝 Contributions
+## 📚 Docs utiles
 
-1. Forkez.
-2. Créez une branche (`feature/anti-zombie-mode`).
-3. Commitez vos mutations.
-4. Ouvrez une PR avant qu’il ne soit trop tard.
+* [Meshtastic CLI](https://meshtastic.org/docs/software/cli/)
+* [Node-RED](https://nodered.org/docs/)
+* [InfluxDB](https://docs.influxdata.com/influxdb/)
+* [Grafana](https://grafana.com/docs/grafana/latest/)
+* [ATAK Server](https://atakmaps.com/)
 
-🧟‍♀️ *Protégez ce dépôt comme votre ration de cerveaux.*
+## 🧠 Contribuer
+
+* Fork → test sur module → pull request
+* Ou viens dans le bunker Discord 🧠
+
+**Repo officiel** : [github.com/propann/LoRaZ-Family-Ops](https://github.com/propann/LoRaZ-Family-Ops)
