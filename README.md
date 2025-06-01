@@ -26,16 +26,16 @@
 
 ## 🔐 Canaux actifs (v2.1)
 
-| Index | Nom canal | Usage                             |
-| ----- | --------- | --------------------------------- |
-| 0     | CLAN      | Messages familiaux (texte, image) |
-| 1     | REDLINE   | SOS + GPS urgence                 |
-| 2     | ECHO      | Push-To-Talk (audio LoRa)         |
-| 3     | BUNKER    | Capteurs météo, AR, BLE           |
-| 4     | ZZOMBI    | Test invasion, alertes ludiques   |
-| 5     | ATTAK     | Liaison ATAK Server               |
-| 6     | MAJ\_OTA  | Mises à jour OTA & maintenance    |
-| 7     | RESERVEE  | Slot libre                        |
+| Index | Nom canal | Usage                                                    |
+| ----- | --------- | -------------------------------------------------------- |
+| 0     | CLAN      | Messages familiaux chiffrés (texte, image, notification) |
+| 1     | REDLINE   | Alerte immédiate + GPS + batterie (urgence ou détresse)  |
+| 2     | ECHO      | Canal audio LoRa (Push-To-Talk, codecs basse latence)    |
+| 3     | BUNKER    | Capteurs météo, capteurs BLE, données environnementales  |
+| 4     | ZOMBIE    | Scénarios fun/test : invasion, bruit, alarmes            |
+| 5     | ATTAK     | Liaison sécurisée avec ATAK Server (position, mission)   |
+| 6     | MAJ\_OTA  | Mises à jour OTA + diagnostic maintenance                |
+| 7     | METEO     | Données météorologiques & IoT (stations météo externes)  |
 
 ## ⚙️ Modes radio
 
