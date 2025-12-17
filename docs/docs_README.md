@@ -53,8 +53,16 @@ Notre mission : créer un réseau GPS + LoRa + IoT + AR pour survivre, explorer,
 
 ## ⚠️ Sécurité des transmissions
 
-Tous les canaux sont protégés avec des clés PSK 256 bits.  
+Tous les canaux sont protégés avec des clés PSK 256 bits.
 Les zombies ne peuvent pas lire les messages, sauf s’ils ont un doctorat en cryptographie (et un cerveau encore fonctionnel, peu probable).
+
+---
+
+## 🚑 Runbook incidents
+
+Pour chaque panne (coupure, mesh figé, GPS perdu, OTA capricieuse), un déroulé minute par minute est disponible dans
+[`operations_runbook.md`](operations_runbook.md). L’objectif : donner des réflexes prêts à l’emploi à toute la famille,
+sans devoir fouiller dans les scripts ou se souvenir des commandes Docker/Meshtastic en pleine panique.
 
 ---
 

@@ -26,7 +26,10 @@ Scripts Bash, CLI, Ansible et protocoles de déploiement automatique (ou d’urg
 ### 6. [Dashboards Grafana](grafana_dashboards.md)
 Dashboards pour localisation, santé, signal et simulation d’invasion.
 
-### 7. [Guide de survie humoristique](apocalypse_zombie.md)
+### 7. [Runbook incidents](operations_runbook.md)
+Procédures rapides en cas de coupure, panne MQTT, GPS capricieux ou OTA ratée.
+
+### 8. [Guide de survie humoristique](apocalypse_zombie.md)
 Références cinéma, lexique zombie, conseils absurdes mais pratiques. À lire avec un casque en alu.
 
 ---
