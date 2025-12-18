@@ -48,7 +48,7 @@ Effets :
 
 - Création de canaux :
   ```bash
-  meshtastic --setchan FAMILIA --pskhex 2885...
+  meshtastic --setchan FAMILIA --pskref ${MESH_PSK_REF_FAMILIA}
   ```
 - Changement de mode :
   ```bash

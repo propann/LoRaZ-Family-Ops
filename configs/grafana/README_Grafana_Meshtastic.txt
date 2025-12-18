@@ -14,15 +14,15 @@ Grafana est utilisé pour afficher en temps réel et en historique les données 
 ---------------
 - InfluxDB doit être installé et configuré avec la base : `meshtastic`
 - Node-RED alimente InfluxDB via les flows 3 et 8
-- Grafana accède à InfluxDB (port 8086) sur localhost ou IP du Pi
+- Grafana accède à InfluxDB via TLS (port 8086) sur le réseau interne ou via VPN
 
 🔗 Connexion InfluxDB à Grafana :
 --------------------------------
-1. Se connecter à Grafana (http://<IP_PI>:3000)
+1. Se connecter à Grafana (https://<DOMAIN>/grafana)
 2. Aller dans : ⚙️ Configuration > Data Sources > Add data source
 3. Choisir : **InfluxDB**
 4. Configuration :
-   - URL : `http://localhost:8086`
+   - URL : `https://<INFLUX_HOST>:8086`
    - Database : `meshtastic`
    - Version : InfluxQL
    - Auth : off ou selon config

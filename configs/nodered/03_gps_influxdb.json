@@ -60,7 +60,7 @@
     "id": "d1f5675b97eb21e5",
     "type": "mqtt-broker",
     "name": "Mosquitto Local",
-    "broker": "192.168.1.54",
+    "broker": "<MQTT_HOST>",
     "port": "1883",
     "clientid": "nodered-gps-influx",
     "usetls": false,
@@ -78,7 +78,7 @@
     "userProps": "",
     "credentials": {
       "user": "meshtastic",
-      "password": "azoth"
+      "password": ""
     }
   },
   {

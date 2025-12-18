@@ -1,52 +1,51 @@
-
 # 🏠 Config Meshtastic - Module MAISON (BASE_CASTILLO)
-# Nom de code : FORTRESS_MAIN — QG du réseau familial, centre de l'intelligence zombie
+# Nom de code : FORTRESS_MAIN — QG du réseau familial
 
-channel_url: https://meshtastic.org/e/#Ci8SICiFhwzSnHDl0la2oUfW8aqGzh69qWvCz-xkOre8dy0lGgdGQU1JTElBOgIIDQ==
+channel_url: <CHANGE_ME_CHANNEL_URL>
 channel_settings:
   - name: FAMILIA
     id: 0
-    psk: 2885870cd29c70e5d256b6a147d6f1aa86ce1ebda96bc2cfec643ab7bc772d25
+    psk_ref: ${MESH_PSK_REF_FAMILIA}
   - name: CASTILLO
     id: 3
-    psk: 9596342bb8bcf82914bb5ea83c1852afb416dfe24f53ac26ca3b37f934dd731b
+    psk_ref: ${MESH_PSK_REF_CLAN}
   - name: ALERTA_ROJA
     id: 5
-    psk: 542e04683805717d899d1b34a316540586123e321f16dced45832a856788d934
+    psk_ref: ${MESH_PSK_REF_ALERTA}
   - name: TESORO
     id: 6
-    psk: d72ef7bf8e42f0965d0734103b238267880268eaf8faf74a0c63d7ee22aa5602
+    psk_ref: ${MESH_PSK_REF_ALERTA}
 
 config:
   bluetooth:
-    mode: DISABLED  # Pas besoin de Bluetooth sur la station fixe. On veut de la fiabilité, pas du pairing.
+    mode: DISABLED  # Pas besoin de Bluetooth sur la station fixe.
 
   device:
-    nodeInfoBroadcastSecs: 14400  # 4 heures. La base est stable. Pas besoin de hurler.
+    nodeInfoBroadcastSecs: 14400
 
   display:
-    screenOnSecs: 120  # Peut afficher les derniers messages ou positions
+    screenOnSecs: 120
 
   lora:
     region: EU_868
-    channelNum: 3  # CASTILLO — zone de la maison / forteresse
-    txPower: 23  # Plus de puissance = plus de portée
+    channelNum: 3
+    txPower: 23
     usePreset: true
     ignoreMqtt: false
     hopLimit: 7
     txEnabled: true
 
   network:
-    wifiEnabled: true  # La maison a du Wi-Fi, et donc MQTT
+    wifiEnabled: true
     ntpServer: pool.ntp.org
 
   position:
-    gpsMode: DISABLED  # La maison ne bouge pas (normalement…)
-    positionBroadcastSecs: 3600  # Une position par heure (optionnel)
+    gpsMode: DISABLED
+    positionBroadcastSecs: 3600
     positionFlags: 0
 
   power:
-    isPowerSaving: false  # Alimenté en permanence via secteur ou solaire
+    isPowerSaving: false
     lsSecs: 0
     minWakeSecs: 0
     sdsSecs: 0
@@ -72,4 +71,4 @@ module_config:
 owner: BASE
 owner_short: HQ
 
-# 🧠 QG du réseau. Relais de données, interface MQTT, zone de coordination. Capable de capter tout ce qui passe dans l’air... sauf l’odeur de panique.
+# 🧠 QG du réseau. Aucun PSK n’est stocké ici : utiliser les références d’environnement.
