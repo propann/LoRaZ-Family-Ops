@@ -1,92 +1,31 @@
+# 🧒 Config Meshtastic - Module ENFANT (TRACEUR SECURISÉ)
 
-# 🧒 Config Meshtastic - Module ENFANT (SAFEKID_v1)
-# Nom de code : KIDDO_1 — Version apocalypse-compatible
-
-channel_url: https://meshtastic.org/e/#Ci8SICiFhwzSnHDl0la2oUfW8aqGzh69qWvCz-xkOre8dy0lGgdGQU1JTElBOgIIDQ==
+channel_url: <CHANGE_ME_CHANNEL_URL>
 channel_settings:
   - name: FAMILIA
     id: 0
-    psk: 2885870cd29c70e5d256b6a147d6f1aa86ce1ebda96bc2cfec643ab7bc772d25
+    psk_ref: ${MESH_PSK_REF_FAMILIA}
+  - name: CASTILLO
+    id: 3
+    psk_ref: ${MESH_PSK_REF_CLAN}
   - name: PERRITOS
     id: 4
-    psk: cb1f9a5a4a56fa49f932e2183ed20981798b23b1b07187da6d11f65d3ac49546
-  - name: ALERTA_ROJA
-    id: 5
-    psk: 542e04683805717d899d1b34a316540586123e321f16dced45832a856788d934
+    psk_ref: ${MESH_PSK_REF_CLAN}
 
 config:
   bluetooth:
-    fixedPin: ******  # Aucun appairage Bluetooth non autorisé — les enfants ne reçoivent pas les zombies via BLE.
-
-  device:
-    nodeInfoBroadcastSecs: 7200  # Toutes les 2h : "je vais bien"
-
-  display:
-    screenOnSecs: 20  # Affichage minimal, économies d’énergie + protection des petits yeux
-
+    mode: DISABLED
   lora:
     region: EU_868
-    channelNum: 0
-    txPower: 17
-    usePreset: true
-    ignoreMqtt: true
-    hopLimit: 2
-    txEnabled: true
-
-  network:
-    wifiEnabled: false  # Surtout pas de Wi-Fi ! Un réseau d'enfants n’a rien à faire sur internet.
-    ntpServer: pool.ntp.org
-
+    channelNum: 4
+    txPower: 20
+    hopLimit: 5
   position:
     gpsMode: ENABLED
-    gpsUpdateInterval: 180
-    positionBroadcastSecs: 300
-    broadcastSmartMinimumDistance: 50
-    positionBroadcastSmartEnabled: true
-    positionFlags: 819
-
+    positionBroadcastSecs: 120
   power:
     isPowerSaving: true
-    lsSecs: 600  # Longs cycles de sommeil pour maximiser l'autonomie
-    minWakeSecs: 10
-    sdsSecs: 4294967295
-    waitBluetoothSecs: 20
-
-  security:
-    serialEnabled: true
-
-module_config:
-  gpio:
-    inputs:
-      - pin: 0
-        name: SOS
-        mode: INPUT_PULLUP
-        action: send_text
-        send_text: "🆘 Appelle Papa/Maman vite !"
-      - pin: 25
-        name: OK
-        mode: INPUT_PULLUP
-        action: send_text
-        send_text: "✅ Tout va bien !"
-      - pin: 26
-        name: Emoji
-        mode: INPUT_PULLUP
-        action: send_text
-        send_text: "🙂"
-
-  ambientLighting:
-    red: 255
-    green: 150
-    blue: 50
-    current: 5
-
-  externalNotification:
-    enabled: true
-    alertMessageBuzzer: true
-    useI2sAsBuzzer: false
 
 owner: KIDDO
-owner_short: 1
-
-# 🧠 En résumé : ce module permet à un enfant de signaler un problème, un état "OK", ou d’envoyer un smiley.
-# Le tout dans un petit boîtier durci, résistant à la boue, aux goûters et aux hordes en maraude.
+owner_short: KID
+# 🤖 Aucun secret n’est embarqué en clair. Utiliser les références.

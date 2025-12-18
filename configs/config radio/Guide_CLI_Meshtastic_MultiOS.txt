@@ -1,77 +1,34 @@
-GUIDE – Installation et configuration des radios Meshtastic via CLI
-==========================================================================
+# Guide CLI Meshtastic (MultiOS) — version sanitizée
 
-Ce guide explique comment installer l’outil Meshtastic CLI et configurer un module via USB sur Windows, Raspberry Pi ou MacOS.
+Prérequis :
+- Firmware Meshtastic installé (https://flasher.meshtastic.org)
+- Python + meshtastic-cli
 
-📦 PRÉ-REQUIS :
-------------------
-- Avoir une radio Meshtastic (T-Beam, T-Deck, etc.) branchée en USB
-- Firmware Meshtastic installé (via https://flasher.meshtastic.org)
-- Python 3 installé sur votre système
-
-🔧 INSTALLATION DE MESHTASTIC CLI
-----------------------------------
-
-🪟 WINDOWS :
-1. Installer Python : https://www.python.org/downloads/windows/
-2. Ouvrir une invite de commandes (`cmd.exe`)
-3. Installer Meshtastic :
-   pip install meshtastic --upgrade
-
-🍓 RASPBERRY PI (Debian/Ubuntu) :
-1. sudo apt update && sudo apt install python3-pip -y
-2. pip3 install meshtastic --upgrade
-
-🍎 MACOS :
-1. Installer Homebrew si absent : https://brew.sh
-2. brew install python3
-3. pip3 install meshtastic --upgrade
-
-📡 COMMANDES DE BASE
-----------------------
-
-🔎 Lister les ports disponibles :
-  meshtastic --port auto --info
-
-📥 Exporter la configuration d’un module :
-  meshtastic --port COMx --export-config > config_radio.yaml
-
-📤 Appliquer une configuration (Linux/macOS) :
-  meshtastic --port /dev/ttyUSB0 --configure config_radio.yaml
-
-📤 Appliquer une configuration (Windows) :
-  meshtastic --port COMx --configure config_radio.yaml
+Commandes utiles :
 
 🔁 Changer le nom du module :
-  meshtastic --port COMx --set ownerlong "Zombunker"
+  meshtastic --port COMx --set ownerlong "Nom_Code"
 
-🔐 Changer le canal et la clé PSK :
-  meshtastic --port COMx --ch-set psk <clé_en_hex>
+🔐 Changer le canal et référencer la clé (PSK_REF) :
   meshtastic --port COMx --ch-set name "FAMILIA"
+  meshtastic --port COMx --ch-set pskref ${MESH_PSK_REF_FAMILIA}
 
-🌐 Configurer le Wi-Fi :
-  meshtastic --port COMx --set wifi_ssid "Livebox-53D4"
-  meshtastic --port COMx --set wifi_password "H6zv6bnSXV4Hd9v57t"
+🌐 Configurer le Wi-Fi (exemple placeholder) :
+  meshtastic --port COMx --set wifi_ssid "<WIFI_SSID>"
+  meshtastic --port COMx --set wifi_password "<WIFI_PASSWORD>"
 
-📡 Configurer MQTT :
-  meshtastic --port COMx --set mqtt_address "192.168.1.54"
-  meshtastic --port COMx --set mqtt_username "meshtastic"
-  meshtastic --port COMx --set mqtt_password "azoth"
+📡 Configurer MQTT (exemple placeholder) :
+  meshtastic --port COMx --set mqtt_address "<MQTT_HOST>"
+  meshtastic --port COMx --set mqtt_username "${MQTT_USERNAME}"
+  meshtastic --port COMx --set mqtt_password "${MQTT_PASSWORD}"
 
-🛰️ Configurer la position GPS fixe :
-  meshtastic --port COMx --setlat 45.8192568
-  meshtastic --port COMx --setlon 4.9203452
-  meshtastic --port COMx --setalt 250
+🛰️ Configurer la position GPS fixe (optionnel) :
+  meshtastic --port COMx --setlat <LATITUDE>
+  meshtastic --port COMx --setlon <LONGITUDE>
+  meshtastic --port COMx --setalt <ALTITUDE_M>
 
 ✅ TEST :
   meshtastic --port COMx --info
 
 💬 Envoyer un message :
-  meshtastic --port COMx --sendtext "Coucou les zombies 🧟‍♂️"
-
-📦 Astuce :
-Tu peux créer des scripts `.bat` ou `.sh` pour configurer tes modules automatiquement.
-
-—
-
-Fichier généré pour le Réseau Familial Meshtastic – 2025
+  meshtastic --port COMx --sendtext "Coucou la team"

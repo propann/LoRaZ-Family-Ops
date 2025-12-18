@@ -1,83 +1,81 @@
-# 🛰️ LoRaZ-Family-Ops v2.1 — Réseau Post-Apocalyptique Familial
+# TEAM-MADA / LoRaZ Family Ops
 
-> *"Quand Internet tombe, la tribu parle encore."*
+Infrastructure auto-hébergée pour mailler la famille TEAM-MADA en LoRa/Meshtastic et synchroniser les données (Maison ↔ VPS). Objectif : dépôt publiable, sans secrets et prêt pour une stack Docker sécurisée.
 
-## 📦 Présentation du projet
+## Modules
+- **Control Node (public)** : page racine `/` pour affichage d’état minimal.
+- **Status** : `/status` (privé) – supervision légère, checks santé.
+- **Grafana** : `/grafana` (privé) – tableaux bord (derrière SSO).
+- **n8n / automations** : `/n8n-*` (privé) – workflows.
+- **Mesh Ops** : `/mesh` (privé) – vue réseau Meshtastic (nodes, enroll, admin).
 
-**LoRaZ-Family-Ops** est un réseau de communication **autonome, chiffré et résilient** conçu pour fonctionner même en cas de coupure Internet, d'apocalypse zombie ou de rave dans les bois. Il connecte humains, animaux et capteurs via LoRa + GPS + MQTT, sur Raspberry Pi et modules ESP32/LoRa.
-
-## 🎯 Objectifs
-
-* Maintenir le lien familial sans réseau cellulaire
-* Suivre les membres et animaux en temps réel
-* Alerter et réagir en situation critique
-* Tester des scénarios de crise (mode Zombie, ATAK)
-* Collecter des données météo / capteurs / AR
-
-## 🧱 Architecture
-
-| Élément         | Matériel                               | Fonction principale                |
-| --------------- | -------------------------------------- | ---------------------------------- |
-| Traceur humain  | T-Beam Supreme                         | GPS, messages, PTT, BLE santé      |
-| Traceur animal  | TinyLoRa + collier étanche             | Position, RSSI, géofence           |
-| Station maison  | Pi 5 + module LoRa                     | Passerelle MQTT, serveur principal |
-| Stations relais | Pi Zero / ESP32                        | Relais LoRa, nodes outdoor         |
-| Backend         | Mosquitto, Node-RED, InfluxDB, Grafana | Traitement, alertes, dashboards    |
-
-## 🔐 Canaux actifs (v2.1)
-
-| Index | Nom canal | Usage                                                    |
-| ----- | --------- | -------------------------------------------------------- |
-| 0     | CLAN      | Messages familiaux chiffrés (texte, image, notification) |
-| 1     | REDLINE   | Alerte immédiate + GPS + batterie (urgence ou détresse)  |
-| 2     | ECHO      | Canal audio LoRa (Push-To-Talk, codecs basse latence)    |
-| 3     | BUNKER    | Capteurs météo, capteurs BLE, données environnementales  |
-| 4     | ZOMBIE    | Scénarios fun/test : invasion, bruit, alarmes            |
-| 5     | ATTAK     | Liaison sécurisée avec ATAK Server (position, mission)   |
-| 6     | MAJ\_OTA  | Mises à jour OTA + diagnostic maintenance                |
-| 7     | METEO     | Données météorologiques & IoT (stations météo externes)  |
-
-## ⚙️ Modes radio
-
-| Mode      | Intervalle GPS | Puissance TX | Description                 |
-| --------- | -------------- | ------------ | --------------------------- |
-| Relax     | 300 s          | 17 dBm       | Éco batterie, usage normal  |
-| Alert     | 15 s           | 23 dBm       | Urgence, recherche, SOS     |
-| Recherche | 5 s            | 23 dBm       | Géolocalisation fine, radar |
-| Party     | 120 s          | 18 dBm       | Fête, débit plus élevé      |
-| Stealth   | 900 s          | 5 dBm        | Ultra discret               |
-
-## 📊 Dashboards
-
-* **Grafana** → Suivi GPS, capteurs, batterie
-* **Node-RED** → Alertes geofencing, logique de modes, mode Zombie
-
-## 🧪 En test / Dev
-
-* Affichage POI AR sur Android (API + Node-RED)
-* Monitoring santé (BLE → température, HRM)
-* RFID collier + activation GPS
-* Mode chiffré ATAK ↔ Meshtastic
-
-## 🧟 Règle post-apo
-
-Tout script/document contient au moins une ligne du style :
-
+## Déploiement rapide (Docker Compose)
 ```bash
-# Si ce script plante, considérez qu’un zombie l’a saboté.
+cp .env.example .env
+# Renseigner les variables (auth, PSK_REF, MQTT, TLS...)
+docker compose -f serveurs/docker/docker-compose.yml up -d
 ```
 
-## 📚 Docs utiles
+Principes stack :
+- Services nommés `reverse-proxy`, `mesh-gateway`, `nodered`, `grafana`, `influxdb`, `n8n`, `mqtt-hub`.
+- Réseau overlay `core_net` + sous-réseaux privés par service si besoin.
+- Healthchecks + rotation de logs (`max-size=10m`, `max-file=3`).
 
-* [Meshtastic CLI](https://meshtastic.org/docs/software/cli/)
-* [Node-RED](https://nodered.org/docs/)
-* [InfluxDB](https://docs.influxdata.com/influxdb/)
-* [Grafana](https://grafana.com/docs/grafana/latest/)
-* [ATAK Server](https://atakmaps.com/)
+## NGINX / Reverse Proxy (exemple)
+Fichier `/etc/nginx/conf.d/loraz.conf` :
+```nginx
+map $http_upgrade $connection_upgrade { default upgrade; '' close; }
+limit_req_zone $binary_remote_addr zone=api_rl:10m rate=$NGINX_RATE_LIMIT;
 
-## 🧠 Contribuer
+server {
+  listen 443 ssl http2;
+  server_name ${DOMAIN};
+  ssl_certificate ${TLS_CERT_PATH};
+  ssl_certificate_key ${TLS_KEY_PATH};
 
-* Fork → test sur module → pull request
-* Ou viens dans le bunker Discord 🧠
+  add_header Referrer-Policy "strict-origin-when-cross-origin";
+  add_header X-Content-Type-Options "nosniff";
+  add_header X-Frame-Options "SAMEORIGIN";
+  add_header X-XSS-Protection "1; mode=block";
+  add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
 
-**Repo officiel** : [github.com/propann/LoRaZ-Family-Ops](https://github.com/propann/LoRaZ-Family-Ops)
+  location = / { proxy_pass http://control-node/; }
+  location /status { proxy_pass http://status/; auth_request /auth; limit_req zone=api_rl burst=$NGINX_BURST; }
+  location /grafana/ { proxy_pass http://grafana:3000/; auth_request /auth; proxy_set_header X-Scope-OrgID "1"; }
+  location /n8n-/ { proxy_pass http://n8n:5678/; auth_request /auth; }
+  location /mesh { proxy_pass http://mesh-dashboard/; auth_request /auth; proxy_set_header X-Forwarded-Prefix /mesh; }
+
+  location = /auth { internal; proxy_pass http://sso-auth/; }
+}
+```
+Astuce Grafana : dans `grafana.ini`, définir `root_url = %(protocol)s://%(domain)s/grafana`.
+
+## MQTT bridge (Maison ↔ VPS)
+- Maison = broker temps réel (localhost ou LAN sécurisé).
+- VPS = hub agrégation + filtrage.
+- Exemple de bridge (`/etc/mosquitto/conf.d/bridge.conf`) :
+```conf
+connection loraz-hub
+address ${MQTT_BROKER_HOST}:${MQTT_BROKER_PORT}
+topic mesh/# out 1
+topic alerts/# both 1
+remote_username ${MQTT_USERNAME}
+remote_password ${MQTT_PASSWORD}
+bridge_capath ${MQTT_TLS_CA_CERT_PATH}
+bridge_cafile ${MQTT_TLS_CA_CERT_PATH}
+bridge_tls_version tlsv1.2
+restart_timeout 10
+```
+Ajouter une ACL côté broker (`acl_file /etc/mosquitto/acl`) en limitant aux topics nécessaires.
+
+## Docker Runbook (résumé)
+- Démarrer : `docker compose up -d`
+- Vérifier santé : `docker compose ps`, `docker compose logs reverse-proxy`
+- Sauvegarder : `docker compose down` puis backup volumes (Influx, n8n, Node-RED flows sans secrets)
+- Restaurer : remettre les volumes puis `docker compose up -d`
+
+## Ressources
+- Documentation complète : `docs/`
+- Mesh Ops : `docs/MESH_OPS.md`
+- Architecture : `docs/ARCHITECTURE.md`
+- Sécurité : `SECURITY.md`
