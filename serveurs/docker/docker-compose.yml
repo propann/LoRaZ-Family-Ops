@@ -1,0 +1,246 @@
+version: "3.9"
+
+services:
+  reverse-proxy:
+    image: nginx:1.25-alpine
+    container_name: reverse-proxy
+    restart: unless-stopped
+    ports:
+      - "${NGINX_HTTP_PORT:-80}:80"
+      - "${NGINX_HTTPS_PORT:-443}:443"
+    environment:
+      DOMAIN: ${DOMAIN}
+      TLS_CERT_PATH: ${TLS_CERT_PATH}
+      TLS_KEY_PATH: ${TLS_KEY_PATH}
+      NGINX_RATE_LIMIT: ${NGINX_RATE_LIMIT}
+      NGINX_BURST: ${NGINX_BURST}
+    volumes:
+      - ./nginx/loraz.conf.template:/etc/nginx/templates/loraz.conf.template:ro
+      - ./nginx/auth/.htpasswd:/etc/nginx/auth/.htpasswd:ro
+      - ./nginx/certs:/etc/nginx/certs:ro
+    depends_on:
+      - control-node
+      - status
+      - grafana
+      - n8n
+      - mesh-dashboard
+    networks:
+      - core_net
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost/ >/dev/null || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  control-node:
+    image: nginx:1.25-alpine
+    container_name: control-node
+    restart: unless-stopped
+    volumes:
+      - ./control-node/index.html:/usr/share/nginx/html/index.html:ro
+    networks:
+      - core_net
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost/ >/dev/null || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  status:
+    image: nginx:1.25-alpine
+    container_name: status
+    restart: unless-stopped
+    volumes:
+      - ./status/index.html:/usr/share/nginx/html/index.html:ro
+    networks:
+      - core_net
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost/ >/dev/null || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  mesh-dashboard:
+    image: nginx:1.25-alpine
+    container_name: mesh-dashboard
+    restart: unless-stopped
+    volumes:
+      - ./mesh-dashboard/index.html:/usr/share/nginx/html/index.html:ro
+    networks:
+      - core_net
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost/ >/dev/null || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  grafana:
+    image: grafana/grafana-oss:10.4.3
+    container_name: grafana
+    restart: unless-stopped
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD}
+      GF_SERVER_ROOT_URL: ${GRAFANA_ROOT_URL}
+      GF_SERVER_SERVE_FROM_SUB_PATH: "true"
+    volumes:
+      - grafana_data:/var/lib/grafana
+    networks:
+      - core_net
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:3000/api/health >/dev/null || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  influxdb:
+    image: influxdb:2.7
+    container_name: influxdb
+    restart: unless-stopped
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_USERNAME: ${INFLUXDB_ADMIN_USER}
+      DOCKER_INFLUXDB_INIT_PASSWORD: ${INFLUXDB_ADMIN_PASSWORD}
+      DOCKER_INFLUXDB_INIT_ORG: ${INFLUXDB_ORG}
+      DOCKER_INFLUXDB_INIT_BUCKET: ${INFLUXDB_BUCKET}
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: ${INFLUXDB_TOKEN}
+    volumes:
+      - influxdb_data:/var/lib/influxdb2
+    networks:
+      - core_net
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8086/health >/dev/null || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  nodered:
+    image: nodered/node-red:3.1.9
+    container_name: nodered
+    restart: unless-stopped
+    environment:
+      NODE_RED_ENABLE_SAFE_MODE: "false"
+      NODE_RED_CREDENTIAL_SECRET: ${NODE_RED_CREDENTIAL_SECRET}
+    volumes:
+      - nodered_data:/data
+    networks:
+      - core_net
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:1880/ >/dev/null || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  n8n:
+    image: n8nio/n8n:1.67.1
+    container_name: n8n
+    restart: unless-stopped
+    environment:
+      N8N_HOST: ${N8N_HOST}
+      N8N_PROTOCOL: ${N8N_PROTOCOL}
+      N8N_PORT: 5678
+      N8N_PATH: ${N8N_PATH}
+      WEBHOOK_URL: ${N8N_WEBHOOK_URL}
+      N8N_EDITOR_BASE_URL: ${N8N_EDITOR_BASE_URL}
+      N8N_BASIC_AUTH_ACTIVE: "true"
+      N8N_BASIC_AUTH_USER: ${N8N_BASIC_AUTH_USER}
+      N8N_BASIC_AUTH_PASSWORD: ${N8N_BASIC_AUTH_PASSWORD}
+      N8N_ENCRYPTION_KEY: ${N8N_ENCRYPTION_KEY}
+      N8N_DIAGNOSTICS_ENABLED: "false"
+      N8N_PERSONALIZATION_ENABLED: "false"
+    volumes:
+      - n8n_data:/home/node/.n8n
+    networks:
+      - core_net
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:5678/healthz >/dev/null || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  mqtt-hub:
+    image: eclipse-mosquitto:2.0
+    container_name: mqtt-hub
+    restart: unless-stopped
+    ports:
+      - "${MQTT_PORT:-1883}:1883"
+    volumes:
+      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+      - ./mosquitto/passwords:/mosquitto/config/passwords:ro
+      - ./mosquitto/acl:/mosquitto/config/acl:ro
+      - mosquitto_data:/mosquitto/data
+    networks:
+      - core_net
+    healthcheck:
+      test: ["CMD-SHELL", "mosquitto_pub -h localhost -t healthcheck -m ping -u ${MQTT_USERNAME} -P ${MQTT_PASSWORD} >/dev/null 2>&1 || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  mesh-gateway:
+    image: ghcr.io/meshtastic/gateway:latest
+    container_name: mesh-gateway
+    restart: unless-stopped
+    profiles:
+      - hardware
+    devices:
+      - "${MESHTASTIC_SERIAL_PORT}:${MESHTASTIC_SERIAL_PORT}"
+    environment:
+      MQTT_HOST: mqtt-hub
+      MQTT_PORT: 1883
+      MQTT_USERNAME: ${MQTT_USERNAME}
+      MQTT_PASSWORD: ${MQTT_PASSWORD}
+    command: ["--port", "${MESHTASTIC_SERIAL_PORT}"]
+    networks:
+      - core_net
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  core_net:
+    driver: bridge
+
+volumes:
+  grafana_data:
+  influxdb_data:
+  n8n_data:
+  nodered_data:
+  mosquitto_data:

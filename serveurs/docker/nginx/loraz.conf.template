@@ -1,0 +1,66 @@
+map $http_upgrade $connection_upgrade {
+  default upgrade;
+  '' close;
+}
+
+limit_req_zone $binary_remote_addr zone=api_rl:10m rate=${NGINX_RATE_LIMIT};
+
+server {
+  listen 80;
+  server_name ${DOMAIN};
+
+  location /.well-known/acme-challenge/ {
+    root /usr/share/nginx/html;
+  }
+
+  location / {
+    return 301 https://$host$request_uri;
+  }
+}
+
+server {
+  listen 443 ssl http2;
+  server_name ${DOMAIN};
+
+  ssl_certificate ${TLS_CERT_PATH};
+  ssl_certificate_key ${TLS_KEY_PATH};
+
+  add_header Referrer-Policy "strict-origin-when-cross-origin";
+  add_header X-Content-Type-Options "nosniff";
+  add_header X-Frame-Options "SAMEORIGIN";
+  add_header X-XSS-Protection "1; mode=block";
+  add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+
+  client_max_body_size 25m;
+
+  location = / {
+    proxy_pass http://control-node/;
+  }
+
+  location /status {
+    auth_basic "Private";
+    auth_basic_user_file /etc/nginx/auth/.htpasswd;
+    limit_req zone=api_rl burst=${NGINX_BURST};
+    proxy_pass http://status/;
+  }
+
+  location /grafana/ {
+    auth_basic "Private";
+    auth_basic_user_file /etc/nginx/auth/.htpasswd;
+    proxy_pass http://grafana:3000/;
+    proxy_set_header X-Scope-OrgID "1";
+  }
+
+  location /n8n-/ {
+    auth_basic "Private";
+    auth_basic_user_file /etc/nginx/auth/.htpasswd;
+    proxy_pass http://n8n:5678/;
+  }
+
+  location /mesh {
+    auth_basic "Private";
+    auth_basic_user_file /etc/nginx/auth/.htpasswd;
+    proxy_pass http://mesh-dashboard/;
+    proxy_set_header X-Forwarded-Prefix /mesh;
+  }
+}
